@@ -26,3 +26,7 @@ class Item :
 		
 	def updateQuantity (self, value) :
 		self._quantity = self._quantity + value
+		
+	def __str__(self) :
+		return self._name + " quantity:" + str(self._quantity) + "  $" \
+		 + str(self._cost)

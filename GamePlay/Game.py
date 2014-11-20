@@ -12,6 +12,10 @@ import pygame
 from pygame.locals import *
 from Party import *
 
+"""
+The Game Module
+"""
+
 class Game :
 
 	def __init__(self) :
