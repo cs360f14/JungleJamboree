@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ #!/usr/bin/python
 ##################################
 # File Name: JungleJamboree.py
 # Author: 	 Group 3
@@ -11,13 +11,13 @@
 from Game import *
 
 """
-The Main Module
+The Jungle Jamboree Module
 """
 
 def main () :
 	"""Initializes a new game"""
 	testGame = Game()
-#	testGame.on_execute()
+	testGame.on_execute()
 
 
 main()
