@@ -8,4 +8,13 @@
 # Purpose: 	 Player class
 ##################################
 
+from Inventory import *
 
+class Player :
+	
+	def __init__ (self, name) :
+		self._name = name
+		self._backpack = Inventory()
+		
+	def __str__ (self) :
+		return self._name
