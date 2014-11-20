@@ -12,14 +12,10 @@
 The Main Module
 """
 
-def main() :
-	""" Initializes a new game
-	"""
+def main () :
+	"""Initializes a new game"""
 	answer = 3 + 4 
 	print answer
 	print "Hi"
-	
-	
-	
-if __name__=="main" :
-	main ()
+
+main()
