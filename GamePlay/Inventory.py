@@ -33,7 +33,6 @@ class Inventory :
 			if item.getName() == Aitem.getName() :
 				item.updateQuantity(Aitem.getQuantity())
 				isIn = True
-			if isIn :
 				break	
 		if not isIn :
 			self._items.append(Aitem)
