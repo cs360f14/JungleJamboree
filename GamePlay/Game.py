@@ -8,33 +8,28 @@
 # Purpose: 	 Game class
 ##################################
 
-# import pygame 
-# from pygame.locals import *
-from Player import Player
+import pygame 
+from pygame.locals import *
+from Party import *
 
 class Game :
-	
+
 	def __init__(self) :
-		self._running = True
-		self._party = []
-		self.getParty()
-		pass
-	
-	"""
-	def __init__(self) :
+		"""sets running to true, and creates a party and begins setting
+		 up a pygame display """
 		self._running = True
 		self._display = None
-		self._party = []
-		self.getParty()
+		self._party = Party()
 		self._width = 640
 		self._height = 400
 		self._size = (self._width, self._height)
 		pass
 		
 	def on_init (self) :
-			pygame.init()
-			self._running = True
-			self._display = pygame.display.set_mode(self.size, pygame.HWSURFACE)
+		self._party.setUpParty()
+		pygame.init()
+		self._running = True
+		self._display = pygame.display.set_mode(self._size, pygame.HWSURFACE)
 			
 	def on_event (self, event):
 		if event.type == pygame.QUIT:
@@ -59,12 +54,3 @@ class Game :
 			self.on_loop()
 			self.on_render()
 		self.on_cleanup()			
-	"""
-	def getParty (self) :
-		for x in range(1) :
-			self._party.append(Player(self.getName())) 
-	
-	def getName (self) :
-		name = raw_input("Enter Name: ")
-		return name
-
