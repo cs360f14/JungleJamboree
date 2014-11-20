@@ -8,14 +8,21 @@
 # Purpose: 	 To run the game
 ##################################
 
+from Game import *
+
 """
 The Main Module
 """
 
 def main () :
 	"""Initializes a new game"""
-	answer = 3 + 4 
-	print answer
-	print "Hi"
+	testGame = Game()
+#	testGame.on_execute()
+
 
 main()
+	
+	#while True:
+	#	events ()
+	#	gameLogic ()
+	#	render ()

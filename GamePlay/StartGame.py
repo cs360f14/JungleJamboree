@@ -7,3 +7,10 @@
 # Assignment:Jungle Jamboree
 # Purpose: 	 StartGame class
 ##################################
+
+class StartGame :
+	
+	def __init__ (self) :
+		pass
+		
+	
