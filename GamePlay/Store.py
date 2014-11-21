@@ -18,6 +18,7 @@ class Store (Inventory):
 	
 	def __init__ (self) :
 		Inventory.__init__(self)
+		self._food = 5000
 		#relationship?
 		
 	def menu (self, party) :
@@ -33,3 +34,6 @@ class Store (Inventory):
 		""" displays the stores wares and allows the party to buy items 
 			from the store """
 		pass 
+		
+	def setUpStore(self):
+		

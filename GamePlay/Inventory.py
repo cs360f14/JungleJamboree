@@ -18,6 +18,7 @@ class Inventory :
 	def __init__(self):
 		"""initializes the amount of money and creates a list """
 		self._cash = 500
+		self._food = 0
 		self._items = []
 	
 	def generateItem (self) :
@@ -53,7 +54,12 @@ class Inventory :
 				else :
 					item.updateQuantity(-rItem.getQuantity())
 			count += 1
-			
+	def getFood (self) :
+		return self._food
+		
+	def updateFood (self, num) :
+		self._food += num
+	
 	def displayInventory (self) :
 		"""displays the inventory in a nice fashion"""
 		for item in self.generateItem() :
