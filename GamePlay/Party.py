@@ -47,7 +47,7 @@ class Party :
 		""" removes a valid person from the party """
 		index = -1
 		for person in self.generatePerson () :
-			if person.getName() == deadPerson.getName() :
+			if person is deadPerson : # maybe change this
 				index = self._party.index(person)
 				break
 		if not index == -1 :
@@ -65,7 +65,23 @@ class Party :
 	
 	def removeFromInventory (self, item) :
 		"""removes an item from the backpack """
-		self._backpack.removeItem (item)	
+		self._backpack.removeItem (item)
+		
+	def getCash (self) :
+		""" returns the amount of cash in the backpack"""
+		return self._backpack.getCash()	
+			
+	def updateCash (self, num) :
+		""" updates the amount of cash in the backpack"""
+		self._backpack.updateCash(num)		
+			
+	def getFood (self) :
+		""" returns the amount of cash in the backpack"""
+		return self._backpack.getFood()	
+			
+	def updateFood (self, num) :
+		""" update the amount of food in the backpack"""
+		self._backpack.updateFood(num)	
 		
 	def getInventory (self) :
 		""" returns backpack or the inventory of the party"""
