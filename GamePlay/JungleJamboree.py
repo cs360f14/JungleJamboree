@@ -30,10 +30,5 @@ class JungleJamboree :
 		
 		
 
-jungle = JungleJamboree ()
-jungle.startGame ()
-	
-	#while True:
-	#	events ()
-	#	gameLogic ()
-	#	render ()
+#jungle = JungleJamboree ()
+#jungle.startGame ()
