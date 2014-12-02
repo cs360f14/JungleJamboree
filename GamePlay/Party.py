@@ -42,19 +42,17 @@ class Party :
 		""" a generator to iterate through the list of persons"""		
 		for person in self._party :
 			yield person	
-		
-	def Death(self, deadPerson) :
-		""" removes a valid person from the party """
-		index = -1
+			
+	def updateHealth (self) :
 		for person in self.generatePerson () :
-			if person.getName() == deadPerson.getName() :
-				index = self._party.index(person)
-				break
-		if not index == -1 :
-			self._party.pop(index)
-			self._size -= 1
-		# what to do with a person not in party	
-		
+			person.updateHealth ()		
+			
+	def Death (self) :
+		for person in self.generatePerson () :
+			if person.DeadPerson () :
+				self._party.remove(person)
+				self._size -= 1
+				
 	def setInventory (self, inventory) :
 		"""sets the backpack to the passed in value """
 		self._backpack = inventory
@@ -65,7 +63,23 @@ class Party :
 	
 	def removeFromInventory (self, item) :
 		"""removes an item from the backpack """
-		self._backpack.removeItem (item)	
+		self._backpack.removeItem (item)
+		
+	def getCash (self) :
+		""" returns the amount of cash in the backpack"""
+		return self._backpack.getCash()	
+			
+	def updateCash (self, num) :
+		""" updates the amount of cash in the backpack"""
+		self._backpack.updateCash(num)		
+			
+	def getFood (self) :
+		""" returns the amount of cash in the backpack"""
+		return self._backpack.getFood()	
+			
+	def updateFood (self, num) :
+		""" update the amount of food in the backpack"""
+		self._backpack.updateFood(num)	
 		
 	def getInventory (self) :
 		""" returns backpack or the inventory of the party"""
@@ -74,7 +88,6 @@ class Party :
 	def addPerson (self, person) :
 		""" adds a person to the party""" #currently for unittest
 		self._party.append(person)
-			
-			
+	
 	
 					

@@ -20,6 +20,9 @@ class Inventory :
 		self._cash = 500
 		self._food = 0
 		self._items = []
+		
+	def getSize (self) :
+		return len(self._items)
 	
 	def generateItem (self) :
 		"""A generator for iterating through the items """
@@ -37,6 +40,13 @@ class Inventory :
 				break	
 		if not isIn :
 			self._items.append(Aitem)
+			
+	def returnItem (self, index) :
+		"""returns the item with the passed in index"""
+		if index >= len(self._items) :
+			return None #maybe Exception?
+		return self._items[index]
+					
 
 	def removeItem (self, rItem) :
 		""" Removes an item from the inventory. If the quantity of the
@@ -54,18 +64,48 @@ class Inventory :
 				else :
 					item.updateQuantity(-rItem.getQuantity())
 			count += 1
+			
 	def getFood (self) :
+		"""returns the amount of food"""
 		return self._food
 		
 	def updateFood (self, num) :
+		"""updatets the amount of food"""
 		self._food += num
+		
+	def getCash (self) :
+		"""returns the amount of cash"""
+		return self._cash
+		
+	def updateCash (self, num) :
+		"""updatets the amount of cash"""
+		self._cash += num
+		
+	def getOption (self) :
+		"""Gets which option of the inventory with food and exit 
+		included  """
+		size = self.getSize()
+		option = int(raw_input ("Choose what item you want"))
+		while option < 1 and option > (size + 2) :
+			option = int(raw_input ("Choose what item you want"))
+		#worry about exceptions	
+		return option	
 	
 	def displayInventory (self) :
 		"""displays the inventory in a nice fashion"""
+		count = 1
+		
+		print("Cash:  $" + str(self._cash) + "\n")
 		for item in self.generateItem() :
-			print(str(item))
-"""
-			
+			print(str(count) + ". " + str(item))
+			count += 1
+		print(str(count) + ". Food:  " + str(self._food))	
+		count += 1
+		print(str(count) + ". Exit")	
+
+	
+"""	
+
 item1 = Item("A", 5, 5.00)
 item2 = Item("B", 3, 5.00)
 item3 = Item("C", 5, 20.00)
@@ -82,5 +122,5 @@ backpack.addItem(item5)
 backpack.addItem(item6)		
 
 backpack.displayInventory()
-		
+	
 """
