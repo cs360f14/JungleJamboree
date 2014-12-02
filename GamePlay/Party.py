@@ -88,9 +88,6 @@ class Party :
 	def addPerson (self, person) :
 		""" adds a person to the party""" #currently for unittest
 		self._party.append(person)
-		
-
-			
-			
+	
 	
 					

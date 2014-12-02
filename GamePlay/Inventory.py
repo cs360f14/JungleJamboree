@@ -82,14 +82,14 @@ class Inventory :
 		self._cash += num
 		
 	def getOption (self) :
-		"""Gets which option of the inventory """
+		"""Gets which option of the inventory with food and exit 
+		included  """
 		size = self.getSize()
 		option = int(raw_input ("Choose what item you want"))
-		while option < 1 and option > (size + 1) :
+		while option < 1 and option > (size + 2) :
 			option = int(raw_input ("Choose what item you want"))
 		#worry about exceptions	
-		return option
-			
+		return option	
 	
 	def displayInventory (self) :
 		"""displays the inventory in a nice fashion"""
@@ -101,10 +101,11 @@ class Inventory :
 			count += 1
 		print(str(count) + ". Food:  " + str(self._food))	
 		count += 1
+		print(str(count) + ". Exit")	
+
 	
-	
-		
 """	
+
 item1 = Item("A", 5, 5.00)
 item2 = Item("B", 3, 5.00)
 item3 = Item("C", 5, 20.00)
@@ -121,5 +122,5 @@ backpack.addItem(item5)
 backpack.addItem(item6)		
 
 backpack.displayInventory()
-"""		
-
+	
+"""
