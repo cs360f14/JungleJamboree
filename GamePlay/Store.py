@@ -37,22 +37,14 @@ class Store (Inventory):
 		
 		option = self.getOption ()
 		item = self.returnItem (option - 1)	
-		amount = getAmount (self, item, party)
+		amount = getAmountStore (self, item, party)
 		item.updateQuantity(-amount)
 		self.removeItem(item)
 		self.updateCash(amount * item.getCost())
 		party.addToInventory(item)
 		party.updateCash(-amount * item.getCost())
-		
-	def getOption (self) :
-		size = self.getSize()
-		option = int(raw_input ("Choose what you want to buy"))
-		while option < 1 and option > (size + 1) :
-			option = int(raw_input ("Choose what you want to buy"))
-		#worry about exceptions	
-		return option	
-		
-	def getAmount (self, item, party) :
+
+	def getAmountStore (self, item, party) :
 		amount = int(raw_input ("Choose the amount you want to buy"))
 		while amount < 0 and amount > item.getQuantity() and \
 		(amount * item.getCost()) < party.getCash():
@@ -60,6 +52,28 @@ class Store (Inventory):
 		# WORRY ABOUT EXCEPTIONS	
 		return amount
 		
+	def getAmountParty (self, item, party) :
+		amount = int(raw_input ("Choose the amount you want to sell"))
+		while amount < 0 and amount > item.getQuantity() and \
+		(amount * item.getCost()) < self.getCash():
+			amount = int(raw_input ("Choose the amount you want to sell"))
+		# WORRY ABOUT EXCEPTIONS	
+		return amount	
+		
 	def setUpStore(self):
+		"""Initalizes the items in the store"""
 		pass
-
+	
+	def sell (self, party):
+		""" displays the parties wares and allows the party to buy items 
+			from the store """
+		party.getInventory().displayInventory()
+		
+		option = party.getInventory().getOption ()
+		item = self.returnItem (option - 1)	
+		amount = getAmountParty (self, item, party)
+		item.updateQuantity(amount)
+		self.addItem(item)
+		self.updateCash(-amount * item.getCost())
+		party.removeFromInventory(item)
+		party.updateCash(amount * item.getCost())

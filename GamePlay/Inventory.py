@@ -80,6 +80,16 @@ class Inventory :
 	def updateCash (self, num) :
 		"""updatets the amount of cash"""
 		self._cash += num
+		
+	def getOption (self) :
+		"""Gets which option of the inventory """
+		size = self.getSize()
+		option = int(raw_input ("Choose what item you want"))
+		while option < 1 and option > (size + 1) :
+			option = int(raw_input ("Choose what item you want"))
+		#worry about exceptions	
+		return option
+			
 	
 	def displayInventory (self) :
 		"""displays the inventory in a nice fashion"""
