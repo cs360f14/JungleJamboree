@@ -6,7 +6,8 @@ JungleJamboree
 3. How to run the code
 4. Project dependent libraries and external software:
   - pygame version 1.9.1
-5. To report bugs please use GitHub Issues
+5. To report bugs:
+  - Follow the instructions in the BUGREPORT.md file
 6. To contribute code:
   - Currently one positive review is required per pull request 
   - A user cannot merge their own pull request
