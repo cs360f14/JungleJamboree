@@ -9,6 +9,7 @@
 ##################################
 
 from Party import *
+from RandomEvents import *
 
 """
 The Turn Module
@@ -19,13 +20,16 @@ class Turn :
 	def __init__(self):
 		""" initializes the turn """
 		self._foodLevel = 2
-		self._day = 0
-		pass 
+		self._day = 0 
+		self._randEvent = RandomEvents()
 	
 	def updateTurn(self, party):
 		""" updates the turn """
 		self._day += 1
 		self.decrementFood (party)
+		#call a random event...
+		self._randEvent.setRandNum()  #gets the random number
+		self._randEvent.testEvent() #subject to change but this will call if the event good or bad........
 		
 	def decrementFood (self, party) :
 		""" decrements the party's food """
