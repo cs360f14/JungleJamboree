@@ -12,7 +12,6 @@ import pygame
 import sys
 from pygame.locals import *
 from Player import Player
-from Turn import Turn
 
 class Game :
 	"""
@@ -68,8 +67,22 @@ class Game :
 								if mouse[1] > 145:
 									if mouse[1] < 157:
 										print("test success")
-										self._state = "Home"
+										self._state = "Store"
 										
+				
+				
+				elif self._state == "Store":
+					self._display.blit(imgStore, (imgx, imgy))
+					self._display.blit(funds, (297, 279))
+					self._display.blit(leave1, (20, 279))
+					if event.type == MOUSEBUTTONDOWN:
+						if mouse[0] > 20:
+							if mouse[0] < 60:
+								if mouse[1] > 279:
+									if mouse[1] < 291:
+										self._state = "Home"
+					
+					
 										
 				elif self._state == "Home":
 					self._display.blit(imgJungle, (imgx, imgy))
@@ -84,6 +97,30 @@ class Game :
 					self._display.blit(party, (10, 270))
 					self._display.blit(day, (170, 205))
 					self._display.blit(distance, (170, 225))
+					if event.type == MOUSEBUTTONDOWN:
+						if mouse[0] > 8:
+							if mouse[0] < 45:
+								if mouse[1] > 226:
+									if mouse[1] < 233:
+										self._state = "Store"
+										
+					if event.type == MOUSEBUTTONDOWN:
+						if mouse[0] > 8:
+							if mouse[0] < 69:
+								if mouse[1] > 255:
+									if mouse[1] < 265:
+										self._state = "Inventory"
+										
+										
+				elif self._state == "Inventory":
+					self._display.blit(imgInventory, (imgx, imgy))
+					self._display.blit(leave2, (20, 279))
+					if event.type == MOUSEBUTTONDOWN:
+						if mouse[0] > 20:
+							if mouse[0] < 60:
+								if mouse[1] > 279:
+									if mouse[1] < 291:
+										self._state = "Home"
 					
 			#the update for the screen		
 			pygame.display.update()
@@ -109,6 +146,8 @@ class Game :
 pygame.display.set_caption('Jungle Jamboree')
 imgStart = pygame.image.load('Images/TestBackground.png')
 imgJungle = pygame.image.load('Images/JungleBackGround1.png')
+imgStore = pygame.image.load('Images/ShopBackground.png')
+imgInventory = pygame.image.load('Images/Backpack.png')
 imgPerson1 = pygame.image.load('Images/Person1.png')
 imgPerson2 = pygame.image.load('Images/Person2.png')
 imgPerson3 = pygame.image.load('Images/Person3.png')
@@ -136,5 +175,7 @@ inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
 party = testGame._myFont2.render("PARTY", 1, (255,255,255))
 day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
-#testGame.on_init()
+funds = testGame._myFont3.render("MONEY:", 1, (0,0,0))
+leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
+leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))
 testGame.on_loop()
