@@ -1,5 +1,4 @@
 # Bug Report
-==============
 
 ### Steps to report a bug: 
 
