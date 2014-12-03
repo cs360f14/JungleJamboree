@@ -1,19 +1,19 @@
-Bug Report
-==============
+# Bug Report
 
-### Steps to report a bug: ###
+### Steps to report a bug: 
 
-- If you come across a bug, please report it ASAP!
+If you come across a bug, please report it ASAP!
 - On GitHub Issues, create a new issue and use the label, "bug".
 - In the Title section of the issue, your title shoule be "Bug: " followed by the name of the bug that you decide.
 - In the comment section of the issue, copy and paste the bug report log (found below) and fill in the information.
 - Be sure to include a screenshot of the bug, if possible!
 - Once you have followed these steps, click "Submit new issue" and we will take it from there!
 
-### Bug report tips and hints: ### 
+### Bug report tips and hints:
 
-- In your bug report, please try to be as clear and concise as possible.
-- Also, try to include as much useful information as you can to help us find, replicate, and fix the bug as effectively and quickly as we can.
+In your bug report, please try to be as clear and concise as possible.
+Also, try to include as much useful information as you can to help us find, replicate, and fix the bug as effectively and quickly as we can.
+The following steps outline the bug report log found below.
 - Name of bug:
 	* The name of the bug should be easily identifiable.
 - Version:
@@ -38,7 +38,7 @@ Bug Report
 	* a screenshot can be added to the comment section by either dragging and dropping the image file into the box, or by clicking the hyperlink "selecting them" and choosing the image file(s) from there.
 	* please try to provide a helpful screenshot when possible.
     
-### Bug report log: ### 
+### Bug report log:
 
 - This is to be copy/pasted into the comment section of the new issue.
 

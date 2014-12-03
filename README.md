@@ -1,25 +1,72 @@
-JungleJamboree
-==============
+# JungleJamboree
 
-1. Description: Based off of Amazon Trail which originates from Oregon Trail
-2. How to build the code:
-3. How to run the code
-4. Project dependent libraries and external software:
-  - pygame version 1.9.1
-5. To report bugs:
-  - Follow the instructions in the BUGREPORT.md file
-6. To contribute code:
-  - Currently one positive review is required per pull request 
-  - A user cannot merge their own pull request
-  - For documentation please use:
-    * http://legacy.python.org/dev/peps/pep-0008/
-    * https://docs.python.org/3/library/pydoc.html
-  - For testing purposes please contribute a unit test in the corresponding unit test file
-7. This game has been tested on OpenSUSE 13.1 64 bit
-8. Documentation: 
-9. License MIT - http://opensource.org/licenses/MIT
-10. Original Authors:
-  - eheydemann 
-  - bri-a 
-  - stan3971 
+## Installing and Running
+1. Ensure that Pygame is installed
+	- From the command line, type "python" and press enter.
+	- Type "import pygame" and press enter. If no errors occur, then Pygame is installed.
+	- Otherwise, you will have to install Pygame.
+	- We are using Pygame version 1.9.1
+2. Change to the JungleJamboree directory
+3. Type python Game.py, and press enter.
+
+## The Game
+
+### Description
+JungleJamboree is based off of Amazon Trail which originates from Oregon Trail.
+This game has been tested on OpenSUSE 13.1 64 bit.
+
+#### How to build the code
+
+#### How to run the code
+
+#### Project dependent libraries and external software:
+Pygame version 1.9.1
+ 
+## Contributors
+
+#### To report bugs
+Follow the instructions in the BUGREPORT.md file
+
+#### To contribute code
+It is not necessary to email any of the admins to contribute! You may fork the repository and do whatever you want!
+However, please follow pull request rules when contributing back to the project.
+
+Feature add:
+- After cloning the repository and making your changes, you should make a pull request. 
+- This pull request will be visible to the community and people will be able to comment on it. 
+- It will require two positive comments from someone outside of the admins, or one from the admins themselves.
+
+Feature request:
+- To request a feature, make a GitHub issue and use the labeled "enhancement".
+- An admin will then get to this issue as soon as possible and provide feedback.
+
+Code commits and pull requests:
+- If you believe that the project could benefit from having this code merged, make a pull request!
+- In order for the code to be merged, either 3 positive reviews from other outside contributors or 1 positive review from an admin is necessary.
+
+#### Documentation
+For documentation please use:
+   * http://legacy.python.org/dev/peps/pep-0008/
+   * https://docs.python.org/3/library/pydoc.html
+
+#### Testing Requirements
+For testing purposes please contribute a unit test in the corresponding unit test file.
+Travis testing???
+
+#### Communication
+The best way to get in touch with project leads concerning code contribution is to email eheydemann@gmail.com.
+
+## Project Goals
+
+## License 
+MIT
+* http://opensource.org/licenses/MIT
+
+## Original Authors
+Evan Heydemann
+- eheydemann 
+Brianna Alcoran
+- bri-a
+Bryan Stander
+- stan3971 
     
