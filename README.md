@@ -24,22 +24,39 @@ Pygame version 1.9.1
  
 ## Contributors
 
-### To report bugs
+#### To report bugs
 Follow the instructions in the BUGREPORT.md file
 
-### To contribute code
-Currently one positive review is required per pull request and a user cannot merge their own pull request.
+#### To contribute code
+It is not necessary to email any of the admins to contribute! You may fork the repository and do whatever you want!
+However, please follow pull request rules when contributing back to the project.
 
-### Documentation
+Feature add:
+- After cloning the repository and making your changes, you should make a pull request. 
+- This pull request will be visible to the community and people will be able to comment on it. 
+- It will require two positive comments from someone outside of the admins, or one from the admins themselves.
+
+Feature request:
+- To request a feature, make a GitHub issue and use the labeled "enhancement".
+- An admin will then get to this issue as soon as possible and provide feedback.
+
+Code commits and pull requests:
+- If you believe that the project could benefit from having this code merged, make a pull request!
+- In order for the code to be merged, either 3 positive reviews from other outside contributors or 1 positive review from an admin is necessary.
+
+#### Documentation
 For documentation please use:
    * http://legacy.python.org/dev/peps/pep-0008/
    * https://docs.python.org/3/library/pydoc.html
 
-### Testing Requirements
-For testing purposes please contribute a unit test in the corresponding unit test file
+#### Testing Requirements
+For testing purposes please contribute a unit test in the corresponding unit test file.
+Travis testing???
 
-### Communication
-The best way to get in touch with project leads concerning code contribution is to email eheydemann@gmail.com
+#### Communication
+The best way to get in touch with project leads concerning code contribution is to email eheydemann@gmail.com.
+
+## Project Goals
 
 ## License 
 MIT
@@ -47,9 +64,9 @@ MIT
 
 ## Original Authors
 Evan Heydemann
-* eheydemann 
+- eheydemann 
 Brianna Alcoran
-* bri-a
+- bri-a
 Bryan Stander
-* stan3971 
+- stan3971 
     
