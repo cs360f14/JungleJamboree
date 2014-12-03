@@ -17,9 +17,9 @@ This game has been tested on OpenSUSE 13.1 64 bit.
 
 #### How to build the code
 
-### How to run the code
+#### How to run the code
 
-### Project dependent libraries and external software:
+#### Project dependent libraries and external software:
 Pygame version 1.9.1
  
 ## Contributors
