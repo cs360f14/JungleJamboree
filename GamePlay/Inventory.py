@@ -18,7 +18,7 @@ class Inventory :
 	def __init__(self):
 		"""initializes the amount of money and creates a list """
 		self._cash = 500
-		self._food = 0
+		self._food = 10
 		self._items = []
 		
 	def getSize (self) :
@@ -85,9 +85,9 @@ class Inventory :
 		"""Gets which option of the inventory with food and exit 
 		included  """
 		size = self.getSize()
-		option = int(raw_input ("Choose what item you want"))
-		while option < 1 and option > (size + 2) :
-			option = int(raw_input ("Choose what item you want"))
+		option = int(raw_input ("Choose what item you want: "))
+		while option < 1 or option > (size + 2) :
+			option = int(raw_input ("Choose what item you want: "))
 		#worry about exceptions	
 		return option	
 	
