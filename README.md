@@ -58,6 +58,7 @@ In the future, we plan on using [Travis](https://travis-ci.org/) for testing. If
 The best way to get in touch with project leads concerning code contribution is to email eheydemann@gmail.com.
 We also encourage all contributors to communicate via the IRC Channel for this project. On Freenode, our channel is #cs360f14JungleJamboree
 To connect to the IRC channel:
+
 1. Open Firefox web browser
 2. Get the ChatZilla [add-on](https://addons.mozilla.org/en-us/firefox/addon/chatzilla/)
 3. Open ChatZilla and type the following:
