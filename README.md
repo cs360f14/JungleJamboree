@@ -15,7 +15,7 @@
 JungleJamboree is based off of Amazon Trail which originates from Oregon Trail.
 This game has been tested on OpenSUSE 13.1 64 bit.
 
-### How to build the code
+#### How to build the code
 
 ### How to run the code
 
