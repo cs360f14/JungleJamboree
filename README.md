@@ -75,6 +75,10 @@ MIT
 
 ## Original Authors
 Evan Heydemann (eheydemann)
+
 Brianna Alcoran (bri-a)
+
 Bryan Stander (stan3971)
+
+
     
