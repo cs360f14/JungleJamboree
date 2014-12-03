@@ -27,8 +27,8 @@ class Game :
 		self._party = Party()
 		#self._party.setUpParty () #don't forget to add this not in init
 		self._state = "Start"
-		self._width = 400
-		self._height = 300
+		self._width = 800
+		self._height = 600
 		self._size = (self._width, self._height)
 		pygame.init()
 		self._display = pygame.display.set_mode(self._size)
