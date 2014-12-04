@@ -9,6 +9,8 @@
 ##################################
 
 from random import *
+from Party import *
+
 #from random import randint
 
 """
@@ -16,10 +18,7 @@ The Random Events Module
 """
 
 class RandomEvents :
-	
-	noEventRange = range(0,50)
-	goodEventRange = range(50,75)
-	badEventRange = range(75,100)
+
 	
 	def __init__(self) :
 		"""initializes the random events"""
@@ -27,6 +26,9 @@ class RandomEvents :
 		self._rand = Random()
 		self._seed = self._rand.seed()
 		self._randNum = self._rand.randint(0,100)
+		self._noEventRange = range(0,50)
+		self._goodEventRange = range(50,75)
+		self._badEventRange = range(75,100)
 		
 	def getRandNum (self) :
 		""" returns the randomly generated number """
@@ -36,46 +38,69 @@ class RandomEvents :
 		""" generates a new random number """
 		self._randNum = self._rand.randint(0,100)
 	
-	def testEvent (self) :
+	def event (self, party) :
 		""" based on the random number, determine the event """
-		if self._randNum in noEventRange :
-			noEvent()
+		if self._randNum in self._noEventRange :
+			self.noEvent()
 			
-		elif self._randNum in goodEventRange :
-			upperEventGood()
+		elif self._randNum in self._goodEventRange :
+			self.upperEventGood(party)
 			
-		elif self._randNum in badEventRange :
-			upperEventBad()
-		
+		elif self._randNum in self._badEventRange :
+			self.upperEventBad(party)
 		
 	def noEvent (self) :
 		""" no event will happen """
-		pass
+		print("No Event")
 	
-	def upperEventGood (self) :
+	def upperEventGood (self, party) :
 		""" the possible good events """
-		pass
+		print("Good Event")
+		self.eventFoundFood(party)
 	
-	def upperEventBad (self) :
+	def upperEventBad (self, party) :
 		""" the possible bad events """
 		#if the 100 was picked...
-		pass
+		print("Bad Event")
+		self.eventLostFood(party)
+		
+		
+	# good events! -----------------------------------------------------
+	
+	def eventFoundFood(self, party) :
+		""" party randomly finds food """
+		print "Found ", self._randNum/ 2, " Food"
+		print "Party had ",	party.getFood(), "food"
+		party.updateFood((self._randNum / 2))
+		print "Party now has", party.getFood(), "food"
+		
+		# other good events:
 
+	# bad events! ------------------------------------------------------
 
+	def eventLostFood(self, party) :
+		""" party randomly loses food """
+		foodAmount = self._randNum/ 2
+		print "Lost ", foodAmount, " Food"
+		print "Party had ",	party.getFood(), "food"
+		
+		if party.getFood() - foodAmount <= 0 :
+			party.updateFood(-(party.getFood()))
+		else :
+			party.updateFood(-(self._randNum / 2))
+			
+		print "Party now has", party.getFood(), "food"
+		if party.getFood() == 0 :
+			print "Party is dead"		#stop game loop
+			
+		# other bad events (got a disease, lost the machete, broke an arm)
+
+party = Party()
 test = RandomEvents()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
-test.setRandNum ()
-print test.getRandNum()
 
+for x in range(1,5) :
+	print "Turn: ", x
+	print "Random Number: ", test.getRandNum()
+	test.event(party)
+	test.setRandNum ()
+	print ""

@@ -88,6 +88,13 @@ class Party :
 	def addPerson (self, person) :
 		""" adds a person to the party""" #currently for unittest
 		self._party.append(person)
+		
+	def checkPartyDead(self):
+		if self._size == 0 :
+			return True
+		return False
 	
-	
+	def setDead(self) :
+		self._party[:] = []
+		self._size = 0
 					

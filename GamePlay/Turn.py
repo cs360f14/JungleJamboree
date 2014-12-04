@@ -22,6 +22,7 @@ class Turn :
 		self._foodLevel = 2
 		self._day = 0 
 		self._randEvent = RandomEvents()
+		self._running = True
 	
 	def updateTurn(self, party):
 		""" updates the turn """
@@ -29,7 +30,7 @@ class Turn :
 		self.decrementFood (party)
 		#call a random event...
 		self._randEvent.setRandNum()  #gets the random number
-		self._randEvent.testEvent() #subject to change but this will call if the event good or bad........
+		self._randEvent.event() #subject to change but this will call if the event good or bad........
 		
 	def decrementFood (self, party) :
 		""" decrements the party's food """
@@ -97,4 +98,11 @@ class Turn :
 			foodString = "Adequate"
 		elif 3 == self._foodLevel :
 			foodString = "Stuffed"
-		return foodString		
+		return foodString
+	
+	def getRunning (self) :
+		return self._running
+	
+	def partyDead(self, party):
+		if party.checkPartyDead() :
+			self._running = False
