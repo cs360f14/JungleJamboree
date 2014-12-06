@@ -23,12 +23,14 @@ class Store (Inventory):
 	def __init__ (self) :
 		Inventory.__init__(self)
 		self._food = 5000
+		self._storeState = ""
+		self._inStore = False
 			
 		#relationship?
 	
 	def menu (self, party, display, mouse, event) :
 		""" displays the menu and choices"""
-		isInStore = True
+
 		myFont = pygame.font.Font('freesansbold.ttf', 15)
 					
 		buy = myFont.render("Buy Items", 1, (0, 0, 0))
@@ -39,62 +41,51 @@ class Store (Inventory):
 		display.blit(trade, (20, 480))		
 		tips = myFont.render("Random Tips", 1, (0, 0, 0))
 		display.blit(tips, (20, 510))
+		
+			
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 15, 100, 415, 440) :
-				#self.buy (party, mouse, event, display)
+				self._storeState = "buy"
+				self._inStore = True
 				pass
-			elif self.checkMouse (mouse, 15, 100, 445, 470) :	
-				#self.sell (party)
+			elif self.checkMouse (mouse, 15, 100, 445, 470) :
+				self._storeState = "sell"	
+
 				pass
-			elif self.checkMouse (mouse, 15, 100, 445, 470) :	
-				cantTradeString = "Sorry I have nothing to Trade."
-				cantTrade = myFont.render(cantTradeString, 1, \
-				(0, 0, 0))
-				display.blit(buy, (480, 420))			
-			elif self.checkMouse (mouse, 15, 100, 445, 470) :	
-				tipString = "You should buy plenty of food for the" + \
-				" jungle is Harsh"
-				tip = myFont.render(tipString, 1, (0, 0, 0))
-				display.blit(buy, (510, 420))				
-	"""
-	def getAmountStore (self, item, party) :
-		amount = int(raw_input ("Choose the amount you want to buy:"))
-		while amount < 0 or amount > item.getQuantity() or \
-		(amount * item.getCost()) > party.getCash():
-			amount = int(raw_input ("Choose the amount you want to buy:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount
+			elif self.checkMouse (mouse, 15, 100, 475, 500) :	
+				self._storeState = "trade"
+	
+			elif self.checkMouse (mouse, 15, 100, 505, 530) :	
+				self._storeState = "tip"
+			elif self.checkMouse (mouse, 26, 60, 550, 570):
+				self._storeState = "leave"	
 		
-	def getAmountParty (self, item, party) :
-		amount = int(raw_input ("Choose the amount you want to sell:"))
-		while amount < 0 or amount > item.getQuantity() or \
-		(amount * item.getCost()) > self.getCash():
-			amount = int(raw_input ("Choose the amount you want to sell:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount	
-		
-	def getAmountStoreFood (self, party) :
-		amount = int(raw_input ("Choose the amount of food:"))
-		while amount < 0 or amount > self.getFood () or \
-		amount > party.getCash():
-			amount = int(raw_input ("Choose the amount of food:"))
-			if amount < 0 :
-				print ("amount < 0")
-			if amount > self.getFood ():
-				print ("amount > self.getFood ()")		
-			if 	amount > party.getCash() :
-				print ("amount > party.getCash()")	
-		# WORRY ABOUT EXCEPTIONS	
-		return amount		
-		
-	def getAmountPartyFood (self, party) :
-		amount = int(raw_input ("Choose the amount of food:"))
-		while amount < 0 or amount > party.getFood () or \
-		amount > self.getCash():
-			amount = int(raw_input ("Choose the amount of food:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount			
-	"""		
+						
+		if self._storeState == "buy":
+			selectBuyString = "Please select the item you wish to buy."
+			selectBuy = myFont.render(selectBuyString, 1, (255, 255, 255))
+			display.blit(selectBuy, (450, 50))		
+			self.buy (party, mouse, event, display)
+		elif self._storeState == "sell" and self._inStore :	
+			selectSellString = "Please select the item you wish to sell."
+			selectSell = myFont.render(selectSellString, 1, (255, 255, 255))
+			display.blit(selectSell, (450, 50))			
+			#self.sell (party)
+			pass
+		elif self._storeState == "trade" :		
+			cantTradeString = "Sorry I have nothing to trade."
+			cantTrade = myFont.render(cantTradeString, 1, (255, 255, 255))
+			display.blit(cantTrade, (450, 50))		
+		elif self._storeState == "tip" :					
+			tipString1 = "You should buy plenty of food for the jungle."
+			tipString2 = "The jungle is a harsh place"
+			tip1 = myFont.render(tipString1, 1, (255, 255, 255))
+			tip2 = myFont.render(tipString2, 1, (255, 255, 255))
+			display.blit(tip1, (450, 50))
+			display.blit(tip2, (450, 67))	
+
+								
+
 
 	def setUpStore(self):
 		"""Initalizes the items in the store"""
@@ -105,29 +96,35 @@ class Store (Inventory):
 		
 	def buy (self, party, mouse, event, display) : 	
 		""" displays the stores wares and allows the party to buy items 
-			from the store """
+			from the store """	
 		amountPerItem = 1
 		amountPerFood = 10
 		self.displayInventory(mouse, event, display)
+		
 		option = self.getItemSelection(mouse, event)
 		
-		while option <= self.getSize ():
-			if option < self.getSize () : #item in inventory
-				item = self.returnItem (option)
+#		while option <= self.getSize ():
+		if option < self.getSize () and option >= 0 : #item in inventory
+			item = self.returnItem (option)
+			if self.checkItemAmount (item, party.getInventory(), \
+			amountPerItem) :
 				item.updateQuantity(-amountPerItem)
 				self.removeItem(item)
 				self.updateCash(amountPerItem * item.getCost())
 				party.addToInventory(item)
 				party.updateCash(-amountPerItem * item.getCost())
-							
-			elif option == self.getSize (): #food
+						
+		elif option == self.getSize (): #food
+			if self.checkFoodAmount (party.getInventory(), \
+			amountPerFood) :
 				self.updateFood(-amountPerFood)
 				self.updateCash(amountPerFood)
 				party.updateFood(amountPerFood)
 				party.updateCash(-amountPerFood)
-				
-			self.displayInventory(mouse, event, display)
-			option = self.getItemSelection(mouse, event)		
+			
+		self.displayInventory(mouse, event, display)
+#		self._storeState = ""
+#			option = self.getItemSelection(mouse, event)		
 	"""		
 	def buy (self, party) :	
 

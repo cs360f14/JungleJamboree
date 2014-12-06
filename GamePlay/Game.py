@@ -77,14 +77,13 @@ class Game :
 							
 	def store (self, mouse, event) :
 		self._display.blit(imgStore, (imgx, imgy))
-		self._display.blit(funds, (297, 279))
-		self._display.blit(leave1, (20, 279))
+		self._display.blit(leave1, (20, 550))
 		self._store.menu (self._party, self._display, mouse, event)
-		self._store.displayInventory (mouse, event, self._display)
+#		self._store.displayInventory (mouse, event, self._display)
 		option = self._store.getItemSelection(mouse, event)
 		
 		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 20, 60, 279, 291) :
+			if self.checkMouse (mouse, 20, 60, 550, 570) :
 				self._state = "Home"
 							
 	def home (self, mouse, event) :
@@ -110,12 +109,12 @@ class Game :
 		
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (imgx, imgy))
-		self._display.blit(leave2, (20, 279))
+		self._display.blit(leave2, (20, 550))
 		self._party.getInventory().displayInventory(mouse, event, \
 		self._display)
 
 		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 26, 60, 279, 291) :
+			if self.checkMouse (mouse, 26, 60, 550, 570) :
 				self._state = "Home"
 
 	def checkMouse (self, mouse, left, right, top, bottom):
@@ -130,9 +129,9 @@ class Game :
 #setDisplay = pygame.display.set_mode((400,300))
 pygame.display.set_caption('Jungle Jamboree')
 imgStart = pygame.image.load('Images/StartScreen.png')
-imgJungle = pygame.image.load('Images/JungleBackGround1.png')
-imgStore = pygame.image.load('Images/ShopBackground.png')
-imgInventory = pygame.image.load('Images/Backpack.png')
+imgJungle = pygame.image.load('Images/HomeScreen.png')
+imgStore = pygame.image.load('Images/Shopkeep.png')
+imgInventory = pygame.image.load('Images/Inventory.png')
 imgPerson1 = pygame.image.load('Images/Person1.png')
 imgPerson2 = pygame.image.load('Images/Person2.png')
 imgPerson3 = pygame.image.load('Images/Person3.png')
@@ -153,14 +152,14 @@ imgyP5 = 100
 
 
 testGame = Game()
-start = testGame._myFont1.render("START", 1, (255,255,255))
-store = testGame._myFont2.render("STORE", 1, (255,255,255))
-forage = testGame._myFont2.render("FORAGE", 1, (255,255,255))
-inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
-party = testGame._myFont2.render("PARTY", 1, (255,255,255))
+start = testGame._myFont3.render("START", 1, (255,255,255))
+store = testGame._myFont3.render("STORE", 1, (255,255,255))
+forage = testGame._myFont3.render("FORAGE", 1, (255,255,255))
+inventory = testGame._myFont3.render("INVENTORY", 1, (255,255,255))
+party = testGame._myFont3.render("PARTY", 1, (255,255,255))
 day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
-funds = testGame._myFont3.render("MONEY:", 1, (0,0,0))
+funds = testGame._myFont3.render("MONEY:", 1, (255,255,255))
 leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
 leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))
 testGame.on_loop()
