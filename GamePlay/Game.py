@@ -36,7 +36,7 @@ class Game :
 		pygame.init()
 		self._display = pygame.display.set_mode(self._size)
 		self._myFont1 = pygame.font.Font('freesansbold.ttf', 15)
-		self._myFont2 = pygame.font.Font('freesansbold.ttf', 10)
+		self._myFont2 = pygame.font.Font('freesansbold.ttf', 25)
 		self._myFont3 = pygame.font.Font('freesansbold.ttf', 12)
 		pygame.display.set_caption('Jungle Jamboree')
 	
@@ -65,6 +65,9 @@ class Game :
 									
 				elif self._state == "Inventory":
 					self.inventory (mouse, event)
+					
+				elif self._state == "Party":
+					self.party (mouse, event)
 
 			#the update for the screen		
 			pygame.display.update()
@@ -90,19 +93,23 @@ class Game :
 		self._display.blit(imgPerson3, (imgxP3, imgyP3))
 		self._display.blit(imgPerson4, (imgxP4, imgyP4))
 		self._display.blit(imgPerson5, (imgxP5, imgyP5))
-		self._display.blit(store, (10, 225))
-		self._display.blit(forage, (10, 240))
-		self._display.blit(inventory, (10, 255))
-		self._display.blit(party, (10, 270))
+		self._display.blit(store, (10, 380))
+		self._display.blit(forage, (10, 410))
+		self._display.blit(inventory, (10, 440))
+		self._display.blit(party, (10, 470))
 		self._display.blit(day, (170, 205))
 		self._display.blit(distance, (170, 225))
 		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 8, 45, 226, 233) :
+			if self.checkMouse (mouse, 8, 95, 380, 405) :
 				self._state = "Store"
 		
 		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 8, 69, 255, 265) :
+			if self.checkMouse (mouse, 8, 160, 440, 465) :
 				self._state = "Inventory"
+				
+		if event.type == MOUSEBUTTONDOWN:
+			if self.checkMouse (mouse, 8, 95, 470, 500) :
+				self._state = "Party"
 		
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (imgx, imgy))
@@ -118,6 +125,15 @@ class Game :
 		and mouse[1] > top and mouse[1] < bottom :
 			isIn = True
 		return isIn
+		
+	def party (self, mouse, event):
+		self._display.blit(imgParty, (imgx, imgy))
+		self._display.blit(imgPerson1, (15, 15))
+		self._display.blit(imgPerson2, (15, 215))
+		self._display.blit(imgPerson3, (15, 415))
+		self._display.blit(imgPerson4, (400, 15))
+		self._display.blit(imgPerson5, (400, 215))
+		
 		
 	def displayInventory (self, inventory, mouse, event) :
 		"""displays the inventory in a nice fashion"""
@@ -154,26 +170,27 @@ class Game :
 #setDisplay = pygame.display.set_mode((400,300))
 pygame.display.set_caption('Jungle Jamboree')
 imgStart = pygame.image.load('Images/StartScreen.png')
-imgJungle = pygame.image.load('Images/JungleBackGround1.png')
-imgStore = pygame.image.load('Images/ShopBackground.png')
+imgJungle = pygame.image.load('Images/HomeScreen.png')
+imgStore = pygame.image.load('Images/Shopkeep.png')
+imgParty = pygame.image.load('Images/PartyScreen.png')
 imgInventory = pygame.image.load('Images/Backpack.png')
-imgPerson1 = pygame.image.load('Images/Person1.png')
+imgPerson1 = pygame.image.load('Images/Explorer1.png')
 imgPerson2 = pygame.image.load('Images/Person2.png')
-imgPerson3 = pygame.image.load('Images/Person3.png')
+imgPerson3 = pygame.image.load('Images/Explorer3.png')
 imgPerson4 = pygame.image.load('Images/Person4.png')
-imgPerson5 = pygame.image.load('Images/Person5.png')
+imgPerson5 = pygame.image.load('Images/Explorer5.png')
 imgx = 0
 imgy = 0
-imgxP1 = 158
-imgyP1 = 134
-imgxP2 = 190
-imgyP2 = 145
-imgxP3 = 230
-imgyP3 = 90
-imgxP4 = 165
-imgyP4 = 95
-imgxP5 = 190
-imgyP5 = 100
+imgxP1 = 281
+imgyP1 = 400
+imgxP2 = 386
+imgyP2 = 407
+imgxP3 = 200
+imgyP3 = 380
+imgxP4 = 145
+imgyP4 = 400
+imgxP5 = 563
+imgyP5 = 440
 
 
 testGame = Game()
@@ -185,7 +202,7 @@ party = testGame._myFont2.render("PARTY", 1, (255,255,255))
 day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
 funds = testGame._myFont3.render("MONEY:", 1, (0,0,0))
-leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
-leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))
+leave1 = testGame._myFont3.render("LEAVE", 1, (255,0,0))
+leave2 = testGame._myFont3.render("LEAVE", 1, (0,255,255))
 testGame.on_loop()
 
