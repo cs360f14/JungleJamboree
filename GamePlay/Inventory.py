@@ -18,7 +18,7 @@ class Inventory :
 	def __init__(self):
 		"""initializes the amount of money and creates a list """
 		self._cash = 500
-		self._food = 10
+		self._food = 100
 		self._items = []
 		
 	def getSize (self) :
@@ -94,6 +94,7 @@ class Inventory :
 	def displayInventory (self) :
 		"""displays the inventory in a nice fashion"""
 		count = 1
+		print "Backpack\n"
 		
 		print("Cash:  $" + str(self._cash) + "\n")
 		for item in self.generateItem() :
@@ -101,7 +102,7 @@ class Inventory :
 			count += 1
 		print(str(count) + ". Food:  " + str(self._food))	
 		count += 1
-		print(str(count) + ". Exit")	
+		#print(str(count) + ". Exit (to Exit inventory enter 0)")
 
 	
 """	
