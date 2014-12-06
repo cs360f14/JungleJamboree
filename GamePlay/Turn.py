@@ -181,6 +181,8 @@ class Turn :
 
 #important testing!!!!
 
+"""
+
 game = Turn()
 party = Party()
 party.setUpParty()
@@ -194,3 +196,4 @@ while (game.getRunning()) :
 	
 print "End of the journey."
 
+"""
