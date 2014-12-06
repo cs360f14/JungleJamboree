@@ -38,18 +38,45 @@ class Party :
 	def getSize (self) :
 		return self._size	
 		
+	def getPartyMember(self, num) :
+		""" returns the person in the party """
+		return self._party[num]
+		
+	def displayParty (self) :
+		for person in self.generatePerson() :
+			person.displayPerson()
+		
 	def generatePerson (self) :
 		""" a generator to iterate through the list of persons"""		
 		for person in self._party :
 			yield person	
 			
+	def setPartyHealth (self, num) : 
+		""" sets health of all party members to the number passed in """
+		for person in self.generatePerson () :
+			person.setHealth (num)	
+	
+	def incrPartyHealth (self, num) :
+		""" increments health of all party members to the number passed in """
+		for person in self.generatePerson () :
+			person.incrHealth (num)	
+			
+	def decrPartyHealth (self, num) :
+		""" decrements health of all party members to the number passed in """
+		for person in self.generatePerson () :
+			person.decrHealth (num)	
+			
 	def updateHealth (self) :
 		for person in self.generatePerson () :
-			person.updateHealth ()		
+			person.updateHealth ()
 			
-	def Death (self) :
+	def updatePartyHealthEffect (self, num) :
+		for person in self.generatePerson() :
+			person.updateHealthEffect(num)
+			
+	def death (self) :
 		for person in self.generatePerson () :
-			if person.DeadPerson () :
+			if person.deadPerson () :
 				self._party.remove(person)
 				self._size -= 1
 				
@@ -88,6 +115,13 @@ class Party :
 	def addPerson (self, person) :
 		""" adds a person to the party""" #currently for unittest
 		self._party.append(person)
+		
+	def checkPartyDead(self):
+		if self._size == 0 :
+			return True
+		return False
 	
-	
+	def setDead(self) :
+		self._party[:] = []
+		self._size = 0
 					
