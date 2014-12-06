@@ -9,6 +9,9 @@
 ##################################
 
 from Item import *
+import pygame 
+from pygame.locals import *
+import sys
 
 """
 The Inventory Module
@@ -18,7 +21,7 @@ class Inventory :
 	def __init__(self):
 		"""initializes the amount of money and creates a list """
 		self._cash = 500
-		self._food = 10
+		self._food = 100
 		self._items = []
 		
 	def getSize (self) :
@@ -81,29 +84,117 @@ class Inventory :
 		"""updatets the amount of cash"""
 		self._cash += num
 		
-	def getOption (self) :
-		"""Gets which option of the inventory with food and exit 
-		included  """
-		size = self.getSize()
-		option = int(raw_input ("Choose what item you want: "))
-		while option < 1 or option > (size + 2) :
-			option = int(raw_input ("Choose what item you want: "))
-		#worry about exceptions	
+	def displayInventory (self, mouse, event, display) :
+		"""displays the inventory in a nice fashion"""
+
+		myFont = pygame.font.Font('freesansbold.ttf', 15) # figure out different way
+		
+		stringHeight = 40
+		cashString = "Cash:  $" + str(self.getCash())
+		cash = myFont.render(cashString, 1, (255,255,255))
+		display.blit(cash, (10, stringHeight))
+		stringHeight += 30
+		foodString = "Food:  " + str(self.getFood())
+		food = myFont.render(foodString, 1, (255,255,255))
+		display.blit(food, (10, 70))
+		stringHeight += 30
+
+
+		count = 0
+		for item in self.generateItem() :
+			itemTexts = myFont.render(str(item), 1, (255, 255, 255))	
+			display.blit(itemTexts, (10, stringHeight))								
+			stringHeight += 30
+			count += 1	
+			
+	def getItemSelection (self, mouse, event) :
+		"""Gets the correct item or food selection from the screen"""
+		myFont = pygame.font.Font('freesansbold.ttf', 15)	
+		goodOption = False
+		option = -1
+		stringHeight = 70
+		if event.type == KEYDOWN:
+			if self.checkMouse (mouse, 5, 100, stringHeight - 5, \
+			stringHeight + 25) :
+				option = self.getSize()
+				goodOption = True
+			stringHeight += 30
+			option = 0	
+			for item in self.generateItem () :
+				if self.checkMouse (mouse, 5, 200, stringHeight - 5, \
+				stringHeight + 25) :
+					goodOption = True
+					break;
+				option += 1
+				stringHeight += 30	
+			if self.checkMouse (mouse, 26, 60, 550, 570) :
+				option = -1	
+				goodOption = True
+			if not goodOption:
+				option = -2	
+				
 		return option	
 	
-	def displayInventory (self) :
-		"""displays the inventory in a nice fashion"""
-		count = 1
+		"""
+	def getAmountStore (self, item, party) :
+		amount = int(raw_input ("Choose the amount you want to buy:"))
+		while amount < 0 or amount > item.getQuantity() or \
+		(amount * item.getCost()) > party.getCash():
+			amount = int(raw_input ("Choose the amount you want to buy:"))
+		# WORRY ABOUT EXCEPTIONS	
+		return amount
 		
-		print("Cash:  $" + str(self._cash) + "\n")
-		for item in self.generateItem() :
-			print(str(count) + ". " + str(item))
-			count += 1
-		print(str(count) + ". Food:  " + str(self._food))	
-		count += 1
-		print(str(count) + ". Exit")	
-
+	def getAmountParty (self, item, party) :
+		amount = int(raw_input ("Choose the amount you want to sell:"))
+		while amount < 0 or amount > item.getQuantity() or \
+		(amount * item.getCost()) > self.getCash():
+			amount = int(raw_input ("Choose the amount you want to sell:"))
+		# WORRY ABOUT EXCEPTIONS	
+		return amount	
+		
+	def getAmountStoreFood (self, party) :
+		amount = int(raw_input ("Choose the amount of food:"))
+		while amount < 0 or amount > self.getFood () or \
+		amount > party.getCash():
+			amount = int(raw_input ("Choose the amount of food:"))
+			if amount < 0 :
+				print ("amount < 0")
+			if amount > self.getFood ():
+				print ("amount > self.getFood ()")		
+			if 	amount > party.getCash() :
+				print ("amount > party.getCash()")	
+		# WORRY ABOUT EXCEPTIONS	
+		return amount		
+		
+	def getAmountPartyFood (self, party) :
+		amount = int(raw_input ("Choose the amount of food:"))
+		while amount < 0 or amount > party.getFood () or \
+		amount > self.getCash():
+			amount = int(raw_input ("Choose the amount of food:"))
+		# WORRY ABOUT EXCEPTIONS	
+		return amount			
+	"""				
+		
+	def checkItemAmount (self, item, inventory, amount) :
+		GoodAmount = True 
+		if amount > item.getQuantity() or \
+			(amount * item.getCost()) > inventory.getCash():
+			GoodAmount = False
+		return GoodAmount	
+			
+	def checkFoodAmount (self, inventory, amount) :
+		GoodAmount = True
+		if amount > self.getFood () or amount > inventory.getCash():
+			GoodAmount = False		
+		return GoodAmount	
 	
+	def checkMouse (self, mouse, left, right, top, bottom):
+		"""Checks if the mouse pointer is located in the box passed in"""
+		isIn = False
+		if mouse[0]	> left and mouse[0] < right \
+		and mouse[1] > top and mouse[1] < bottom :
+			isIn = True
+		return isIn
 """	
 
 item1 = Item("A", 5, 5.00)
