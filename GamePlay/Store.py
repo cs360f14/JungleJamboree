@@ -145,7 +145,7 @@ class Store (Inventory):
 			party.getInventory().displayInventory()
 			option = self.getOption ()		
 	
-
+"""
 
 
 party = Party ()
@@ -157,3 +157,4 @@ print("\n\n\n")
 store.menu (party)
 print("\n\n\n")
 party.getInventory().displayInventory()
+"""

@@ -16,6 +16,7 @@ The Jungle Jamboree Module
 """
 class JungleJamboree :
 	
+	
 	def __init__ (self) :
 		self._running = True
 		self._display = None
@@ -32,3 +33,4 @@ class JungleJamboree :
 
 #jungle = JungleJamboree ()
 #jungle.startGame ()
+#main ()
