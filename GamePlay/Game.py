@@ -34,6 +34,7 @@ class Game :
 		self._height = 600
 		self._size = (self._width, self._height)
 		pygame.init()
+		pygame.font.init()
 		self._display = pygame.display.set_mode(self._size)
 		self._myFont1 = pygame.font.Font('freesansbold.ttf', 15)
 		self._myFont2 = pygame.font.Font('freesansbold.ttf', 10)
@@ -78,7 +79,10 @@ class Game :
 		self._display.blit(imgStore, (imgx, imgy))
 		self._display.blit(funds, (297, 279))
 		self._display.blit(leave1, (20, 279))
-		self.displayInventory (self._store, mouse, event)
+		self._store.menu (self._party, self._display, mouse, event)
+		self._store.displayInventory (mouse, event, self._display)
+		option = self._store.getItemSelection(mouse, event)
+		
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 20, 60, 279, 291) :
 				self._state = "Home"
@@ -107,7 +111,9 @@ class Game :
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (imgx, imgy))
 		self._display.blit(leave2, (20, 279))
-		self.displayInventory (self._party.getInventory(), mouse, event)
+		self._party.getInventory().displayInventory(mouse, event, \
+		self._display)
+
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 26, 60, 279, 291) :
 				self._state = "Home"
@@ -118,37 +124,7 @@ class Game :
 		and mouse[1] > top and mouse[1] < bottom :
 			isIn = True
 		return isIn
-		
-	def displayInventory (self, inventory, mouse, event) :
-		"""displays the inventory in a nice fashion"""
-		myFont = pygame.font.Font('freesansbold.ttf', 15) # figure out different way
-		
-		stringHeight = 40
-		cashString = "Cash:  $" + str(inventory.getCash())
-		cash = myFont.render(cashString, 1, (255,255,255))
-		self._display.blit(cash, (10, stringHeight))
-		stringHeight += 30
-		foodString = "Food:  " + str(inventory.getFood())
-		food = myFont.render(foodString, 1, (255,255,255))
-		self._display.blit(food, (10, 70))
-		stringHeight += 30
-
-		count = 0
-		for item in inventory.generateItem() :
-			itemTexts = myFont.render(str(item), 1, (255, 255, 255))	
-			self._display.blit(itemTexts, (10, stringHeight))								
-			stringHeight += 30
-			count += 1
-			
-	def getItemSelection (self, inventory, mouse, event) :
-		myFont = pygame.font.Font('freesansbold.ttf', 15)	
-		
-		stringHeight = 70
-		if event.type == MOUSEBOTTONDOWN:
-			if self.checkMouse (mouse, 5, 100, stringHeight - 5, \
-			stringHeight + 25) :
-				pass
-					
+				
 									
 	
 #setDisplay = pygame.display.set_mode((400,300))

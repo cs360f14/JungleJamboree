@@ -9,6 +9,9 @@
 ##################################
 
 from Item import *
+import pygame 
+from pygame.locals import *
+import sys
 
 """
 The Inventory Module
@@ -80,30 +83,66 @@ class Inventory :
 	def updateCash (self, num) :
 		"""updatets the amount of cash"""
 		self._cash += num
-		
+	"""	
 	def getOption (self) :
-		"""Gets which option of the inventory with food and exit 
-		included  """
 		size = self.getSize()
 		option = int(raw_input ("Choose what item you want: "))
 		while option < 1 or option > (size + 2) :
 			option = int(raw_input ("Choose what item you want: "))
 		#worry about exceptions	
 		return option	
-	
-	def displayInventory (self) :
-		"""displays the inventory in a nice fashion"""
-		count = 1
-		
-		print("Cash:  $" + str(self._cash) + "\n")
-		for item in self.generateItem() :
-			print(str(count) + ". " + str(item))
-			count += 1
-		print(str(count) + ". Food:  " + str(self._food))	
-		count += 1
-		print(str(count) + ". Exit")	
+"""
 
-	
+	def displayInventory (self, mouse, event, display) :
+		"""displays the inventory in a nice fashion"""
+		myFont = pygame.font.Font('freesansbold.ttf', 15) # figure out different way
+		
+		stringHeight = 40
+		cashString = "Cash:  $" + str(self.getCash())
+		cash = myFont.render(cashString, 1, (255,255,255))
+		display.blit(cash, (10, stringHeight))
+		stringHeight += 30
+		foodString = "Food:  " + str(self.getFood())
+		food = myFont.render(foodString, 1, (255,255,255))
+		display.blit(food, (10, 70))
+		stringHeight += 30
+
+		count = 0
+		for item in self.generateItem() :
+			itemTexts = myFont.render(str(item), 1, (255, 255, 255))	
+			display.blit(itemTexts, (10, stringHeight))								
+			stringHeight += 30
+			count += 1	
+			
+	def getItemSelection (self, mouse, event) :
+		"""Gets the correct item or food selection from the screen"""
+		myFont = pygame.font.Font('freesansbold.ttf', 15)	
+		
+		option = -1
+		stringHeight = 70
+		if event.type == MOUSEBUTTONDOWN:
+			if self.checkMouse (mouse, 5, 100, stringHeight - 5, \
+			stringHeight + 25) :
+				option = self.getSize()
+			stringHeight += 30
+			option = 0	
+			for item in self.generateItem () :
+				if self.checkMouse (mouse, 5, 200, stringHeight - 5, \
+				stringHeight + 25) :
+					break;
+				option += 1
+				stringHeight += 30	
+			if self.checkMouse (mouse, 26, 60, 279, 291) :
+				option = -1	
+		return option		
+					
+	def checkMouse (self, mouse, left, right, top, bottom):
+		"""Checks if the mouse pointer is located in the box passed in"""
+		isIn = False
+		if mouse[0]	> left and mouse[0] < right \
+		and mouse[1] > top and mouse[1] < bottom :
+			isIn = True
+		return isIn
 """	
 
 item1 = Item("A", 5, 5.00)
