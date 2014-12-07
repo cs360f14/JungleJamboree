@@ -19,7 +19,7 @@ class Person :
 	def __init__ (self, name, healthEffect = 0) :
 		""" Initializes a person which has a name and an inventory """
 		self._name = name
-		self._health = 1
+		self._health = 100
 		self._healthEffect = healthEffect
 		self._healthTitle = "Healthy"
 		#Stats

@@ -95,7 +95,7 @@ class Game :
 				self._state = "Store"
 				
 	def travel (self, mouse, event) :
-		self._display.blit(imgParty, (0, 0))
+		self._display.blit(imgTravel, (0, 0))
 		self._display.blit(leave1, (20, 550))
 		self._turn.updateTurn(self._party, self._display)
 		pygame.display.update()
@@ -242,7 +242,12 @@ class Game :
 		self._display.blit(imgGameOver, (0, 0))
 		mouse = pygame.mouse.get_pos()	
 		print "Game Over"
+		pygame.display.update ()
 		waitEvent = pygame.event.wait()
+		
+		while not (waitEvent.type == MOUSEBUTTONDOWN ) :
+			mouse = pygame.mouse.get_pos()	
+			waitEvent = pygame.event.wait()
 		
 		
 		
@@ -263,6 +268,7 @@ imgPerson2 = pygame.image.load('Images/Explorer2.png')
 imgPerson3 = pygame.image.load('Images/Explorer3.png')
 imgPerson4 = pygame.image.load('Images/Explorer4.png')
 imgPerson5 = pygame.image.load('Images/Explorer5.png')
+imgTravel = pygame.image.load('Images/TravelBackground.png')
 """
 imgx = 0
 imgy = 0
