@@ -1,14 +1,5 @@
 # JungleJamboree
 
-## Installing and Running
-1. Ensure that Pygame is installed
-	- From the command line, type "python" and press enter.
-	- Type "import pygame" and press enter. If no errors occur, then Pygame is installed.
-	- Otherwise, you will have to install Pygame. You can install Pygame from [here](http://www.pygame.org/download.shtml)
-	- We are using Pygame version 1.9.1
-2. Change to the JungleJamboree/GamePlay directory
-3. Type python Game.py, and press enter.
-
 ## The Game
 
 ### Description
@@ -22,7 +13,7 @@ This game has been tested on OpenSUSE 13.1 64 bit.
 		- From the command line, type "python" and press enter.
 		- Type "import pygame" and press enter. If no errors occur, then Pygame is installed.
 		- Otherwise, you will have to install Pygame. 
-		- You can install Pygame with "sudo zypper install pygame" and "sudo zypper install pygame-doc"		[	[here](http://www.pygame.org/news.html)
+		- You can install Pygame with "sudo zypper install pygame" and "sudo zypper install pygame-doc"	
 		- We are using Pygame version 1.9.1
 	2. Fork the repository 
 	3. From the command line, type "git clone git@github.com:USER/JungleJamboree.git" where USER is your username
