@@ -135,47 +135,7 @@ class Inventory :
 			if not goodOption:
 				option = -2	
 		return option	
-	
-		"""
-	def getAmountStore (self, item, party) :
-		amount = int(raw_input ("Choose the amount you want to buy:"))
-		while amount < 0 or amount > item.getQuantity() or \
-		(amount * item.getCost()) > party.getCash():
-			amount = int(raw_input ("Choose the amount you want to buy:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount
-		
-	def getAmountParty (self, item, party) :
-		amount = int(raw_input ("Choose the amount you want to sell:"))
-		while amount < 0 or amount > item.getQuantity() or \
-		(amount * item.getCost()) > self.getCash():
-			amount = int(raw_input ("Choose the amount you want to sell:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount	
-		
-	def getAmountStoreFood (self, party) :
-		amount = int(raw_input ("Choose the amount of food:"))
-		while amount < 0 or amount > self.getFood () or \
-		amount > party.getCash():
-			amount = int(raw_input ("Choose the amount of food:"))
-			if amount < 0 :
-				print ("amount < 0")
-			if amount > self.getFood ():
-				print ("amount > self.getFood ()")		
-			if 	amount > party.getCash() :
-				print ("amount > party.getCash()")	
-		# WORRY ABOUT EXCEPTIONS	
-		return amount		
-		
-	def getAmountPartyFood (self, party) :
-		amount = int(raw_input ("Choose the amount of food:"))
-		while amount < 0 or amount > party.getFood () or \
-		amount > self.getCash():
-			amount = int(raw_input ("Choose the amount of food:"))
-		# WORRY ABOUT EXCEPTIONS	
-		return amount			
-	"""				
-		
+
 	def checkItemAmount (self, item, inventory, amount) :
 		GoodAmount = True 
 		if amount > item.getQuantity() or \
