@@ -241,6 +241,7 @@ class Game :
 	def gameOver (self):
 		self._display.blit(imgGameOver, (0, 0))
 		mouse = pygame.mouse.get_pos()	
+		print "Game Over"
 		waitEvent = pygame.event.wait()
 		
 		
