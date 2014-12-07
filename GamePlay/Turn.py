@@ -157,6 +157,22 @@ class Turn :
 		foodLevel = myFont2.render(foodLevelString, 1, (255,255,255))	
 		display.blit(foodLevel, (300, 360))
 		
+	def displayEnd (self, party, display) :
+		""" display the End stats """
+		
+		myFont2 = pygame.font.Font('freesansbold.ttf', 25)
+		
+		dayString = "DAY:  " + str(self._day)
+		day = myFont2.render(dayString, 1, (255,255,255))	
+		display.blit(day, (300, 270))
+		
+		disString = "DISTANCE:  " + str(self._distance)
+		distance = myFont2.render(disString, 1, (255,255,255))	
+		display.blit(distance, (300, 300))
+		
+		foodString = "FOOD AMOUNT:  " + str(party.getFood())
+		food = myFont2.render(foodString, 1, (255,255,255))	
+		display.blit(food, (300, 330))
 		
 		
 	def displayOptions (self) :	
@@ -190,6 +206,7 @@ class Turn :
 	def checkFood (self, party) :
 		if party.getFood () <= 0 :
 			party.setDead ()
+			party.setFood (0)
 			
 	
 	def getRunning (self) :

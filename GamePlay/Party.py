@@ -130,6 +130,9 @@ class Party :
 		""" update the amount of food in the backpack"""
 		self._backpack.updateFood(num)	
 		
+	def setFood (self, num) :
+		self._backpack.setFood (num)
+		
 	def getInventory (self) :
 		""" returns backpack or the inventory of the party"""
 		return self._backpack	
