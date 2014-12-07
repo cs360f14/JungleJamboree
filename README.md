@@ -6,7 +6,7 @@
 	- Type "import pygame" and press enter. If no errors occur, then Pygame is installed.
 	- Otherwise, you will have to install Pygame. You can install Pygame from [here](http://www.pygame.org/download.shtml)
 	- We are using Pygame version 1.9.1
-2. Change to the JungleJamboree directory
+2. Change to the JungleJamboree/GamePlay directory
 3. Type python Game.py, and press enter.
 
 ## The Game
