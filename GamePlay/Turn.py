@@ -39,6 +39,7 @@ class Turn :
 		self._randEvent.randNum()  #gets the random number
 		self._randEvent.event(party, display)
 		self.decrementFood (party)
+		self.checkFood (party)
 		party.updateHealth()
 		self.deadMember(party, display)
 		self.partyDead(party)
@@ -99,9 +100,9 @@ class Turn :
 		"""displays the passed in parties inventory"""
 		party.getInventory().displayInventory()
 		
-	def forageEvent(self, party) :
+	def forageEvent(self, party, display) :
 		if not self._Foraged :
-			self._randEvent.forageEvent(party)	
+			self._randEvent.forageEvent(party, display)	
 			self._Foraged = True	
 			
 	def menu (self, party) :
@@ -185,6 +186,11 @@ class Turn :
 		elif 3 == self._foodLevel :
 			foodString = "Stuffed"
 		return foodString
+		
+	def checkFood (self, party) :
+		if party.getFood () <= 0 :
+			party.setDead ()
+			
 	
 	def getRunning (self) :
 		""" returns the status of the game """
@@ -203,10 +209,10 @@ class Turn :
 		
 		for person in party.generatePerson() :
 			if person.deadPerson() and person.getHealthTitle != "Dead":
-						
+				"""		
 				personString = person.getName()+ "died."
 				dPerson = myFont.render(personString , 1, (255,0,0))
-				display.blit(dPerson, (350, 500))
+				display.blit(dPerson, (350, 500))"""
 				
 				print person.getName(), "died.\n"
 				party.death()

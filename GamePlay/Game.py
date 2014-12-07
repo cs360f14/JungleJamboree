@@ -57,7 +57,14 @@ class Game :
 					pygame.quit()
 					sys.exit()
 					
-				if self._state == "Start":
+				if self._party.checkPartyDead () :
+					self._state == "GameOver"
+					self.gameOver ()
+					
+				if self._state == "GameOver":
+					self.gameOver ()
+					
+				elif self._state == "Start":
 					self.startButton (mouse, event)
 															
 				elif self._state == "Store":
@@ -88,7 +95,7 @@ class Game :
 				self._state = "Store"
 				
 	def travel (self, mouse, event) :
-		self._display.blit(imgParty, (0, 0))
+		self._display.blit(imgTravel, (0, 0))
 		self._display.blit(leave1, (20, 550))
 		self._turn.updateTurn(self._party, self._display)
 		pygame.display.update()
@@ -136,12 +143,19 @@ class Game :
 	
 	def displayHome (self, mouse, event) :
 		self._display.blit(imgJungle, (0, 0))
-
-		self._display.blit(imgPerson1, (281, 400))
-		self._display.blit(imgPerson2, (386, 407))
-		self._display.blit(imgPerson3, (200, 380))
-		self._display.blit(imgPerson4, (145, 400))
-		self._display.blit(imgPerson5, (563, 440))
+		explorersDead = []
+		for person in self._party.generatePerson():
+			explorersDead.append(person.getHealthTitle ())
+		if not explorersDead[0] == "Dead":	
+			self._display.blit(imgPerson1, (281, 400))
+		if not explorersDead[1] == "Dead":
+			self._display.blit(imgPerson2, (386, 407))
+		if not explorersDead[2] == "Dead":
+			self._display.blit(imgPerson3, (200, 380))
+		if not explorersDead[3] == "Dead":
+			self._display.blit(imgPerson4, (145, 400))
+		if not explorersDead[4] == "Dead":
+			self._display.blit(imgPerson5, (563, 440))
 		self._display.blit(store, (10, 380))
 		self._display.blit(forage, (10, 410))
 		self._display.blit(inventory, (10, 440))
@@ -166,7 +180,7 @@ class Game :
 	def forage (self, mouse, event) :
 		self._display.blit(imgForage, (0, 0))
 		self._display.blit(leave1, (750, 575))
-		self._turn.forageEvent(self._party)
+		self._turn.forageEvent(self._party, self._display)
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 750, 800, 550, 600) :
 				self._state = "Home"
@@ -224,6 +238,19 @@ class Game :
 			if self.checkMouse (mouse, 750, 800, 550, 600) :
 				self._state = "Home"
 		
+	def gameOver (self):
+		self._display.blit(imgGameOver, (0, 0))
+		mouse = pygame.mouse.get_pos()	
+		print "Game Over"
+		pygame.display.update ()
+		waitEvent = pygame.event.wait()
+		
+		while not (waitEvent.type == MOUSEBUTTONDOWN ) :
+			mouse = pygame.mouse.get_pos()	
+			waitEvent = pygame.event.wait()
+		
+		
+		
 	
 									
 	
@@ -232,6 +259,7 @@ pygame.display.set_caption('Jungle Jamboree')
 imgStart = pygame.image.load('Images/StartScreen.png')
 imgJungle = pygame.image.load('Images/HomeScreen.png')
 imgStore = pygame.image.load('Images/Shopkeep.png')
+imgGameOver = pygame.image.load('Images/GameOverScreen.png')
 imgParty = pygame.image.load('Images/PartyScreen.png')
 imgForage = pygame.image.load('Images/ForageScreen.png')
 imgPerson1 = pygame.image.load('Images/Explorer1.png')
@@ -240,6 +268,7 @@ imgPerson2 = pygame.image.load('Images/Explorer2.png')
 imgPerson3 = pygame.image.load('Images/Explorer3.png')
 imgPerson4 = pygame.image.load('Images/Explorer4.png')
 imgPerson5 = pygame.image.load('Images/Explorer5.png')
+imgTravel = pygame.image.load('Images/TravelBackground.png')
 """
 imgx = 0
 imgy = 0

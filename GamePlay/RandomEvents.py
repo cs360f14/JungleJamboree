@@ -146,7 +146,7 @@ class RandomEvents :
 		displayString = ""
 		
 		if foodAmount % 2 == 0 :
-			displayString =  "Bugs got into some food! You had to leave some behind."
+			displayString =  "Bugs got into some food!"
 		else :
 			randPartyMember = self.getRandomPartyMember(party)	
 			displayString =  randPartyMember.getName() + \
@@ -196,7 +196,7 @@ class RandomEvents :
 		armstring = randPartyMember.getName() + \
 		 " broke an arm. Lost 50 health."
 		arm = myFont.render(armstring, 1, (0,0,0))
-		display.blit(arm, (150, 200))
+		display.blit(arm, (50, 200))
 		
 		randPartyMember.decrHealth(50)
 		randPartyMember.updateHealthEffect(-2)
@@ -220,7 +220,7 @@ class RandomEvents :
 		legstring = randPartyMember.getName() + \
 		" broke a leg. Lost 70 health."
 		leg = myFont.render(legstring, 1, (0,0,0))
-		display.blit(leg, (150, 200))
+		display.blit(leg, (50, 200))
 		
 		randPartyMember.decrHealth(70)
 		randPartyMember.updateHealthEffect(-5)
