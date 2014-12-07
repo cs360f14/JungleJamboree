@@ -181,10 +181,18 @@ class Game :
 		self._display.blit(imgForage, (0, 0))
 		self._display.blit(leave1, (750, 575))
 		self._turn.forageEvent(self._party, self._display)
-		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 750, 800, 550, 600) :
-				self._state = "Home"
 		
+		pygame.display.update()
+		
+		waitEvent = pygame.event.wait()
+			
+		while not (waitEvent.type == MOUSEBUTTONDOWN and  \
+		self.checkMouse (mouse, 750, 800, 550, 600)):
+			mouse = pygame.mouse.get_pos()	
+			waitEvent = pygame.event.wait()
+
+		self._state = "Home"
+	
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (0, 0))
 		self._display.blit(leave2, (20, 550))

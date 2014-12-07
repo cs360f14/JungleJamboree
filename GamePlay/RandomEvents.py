@@ -51,7 +51,12 @@ class RandomEvents :
 		elif randNum in range (85,100) :
 			foodForaged = 5 * party.getSize()
 			
-		print foodForaged, "food foraged."
+		myFont = pygame.font.Font('freesansbold.ttf', 30) 
+		
+		foragedString = str(foodForaged)  + " food foraged."
+		foraged = myFont.render(foragedString , 1, (255,255,255))
+		display.blit(foraged, (260, 480))	
+
 		party.updateFood(foodForaged)
 	
 	def event (self, party, display) :
@@ -71,7 +76,7 @@ class RandomEvents :
 		myFont = pygame.font.Font('freesansbold.ttf', 30) # figure out different way
 		
 		noEvent = myFont.render("No Event" , 1, (0,0,0))
-		display.blit(noEvent, (350, 200))
+		display.blit(noEvent, (350, 350))
 	
 	def upperEventGood (self, party, display) : #50-75
 		""" the possible good events """
@@ -113,10 +118,10 @@ class RandomEvents :
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
 		Food = myFont.render( "You found food!" , 1, (0,0,0))
-		display.blit(Food, (350, 200))
+		display.blit(Food, (350, 350))
 		amountString = str(self._randNum / 1) + " food has been added to your inventory."
 		amount = myFont.render(amountString , 1, (0,0,0))
-		display.blit(amount, (150, 240))
+		display.blit(amount, (150, 390))
 		
 	def eventFoundGoodHerb (self, party, display) :
 		""" party randomly finds a herb with healing effects """
@@ -124,10 +129,10 @@ class RandomEvents :
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
 		herb = myFont.render("You found a healing herb!" , 1, (0,0,0))
-		display.blit(herb, (250, 200))
+		display.blit(herb, (250, 350))
 		health = "All party members health has been increased"
 		healthplus = myFont.render(health , 1, (0,0,0))
-		display.blit(healthplus, (100, 240))
+		display.blit(healthplus, (100, 390))
 		
 		party.incrPartyHealth(10)
 		party.updatePartyHealthEffect(1)
@@ -150,15 +155,15 @@ class RandomEvents :
 		else :
 			randPartyMember = self.getRandomPartyMember(party)	
 			displayString =  randPartyMember.getName() + \
-			" snacked on some food during the night." 
+			" snacked on some food." 
 			randPartyMember.incrHealth(10)
 			
 		lostFood = "You lost " + str(foodAmount) + "food."
 		
 		foodDisplay = myFont.render(displayString , 1, (0,0,0))
-		display.blit(foodDisplay, (50, 200))
+		display.blit(foodDisplay, (150, 350))
 		lostFoodDisplay = myFont.render(lostFood , 1, (0,0,0))
-		display.blit(lostFoodDisplay, (150, 240))
+		display.blit(lostFoodDisplay, (200, 390))
 		
 		if party.getFood() - foodAmount <= 0 :
 			party.updateFood(-(party.getFood()))
@@ -168,7 +173,7 @@ class RandomEvents :
 		if party.getFood() == 0 :
 			party.setDead()			#stop game loop
 			Dead = myFont.render( "All party members are dead.", 1, (0,0,0))
-			display.blit(Dead, (300, 300))
+			display.blit(Dead, (250, 450))
 		else :
 			pass
 	
@@ -178,10 +183,10 @@ class RandomEvents :
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
 		herb = myFont.render("You found a poisonous herb!" , 1, (0,0,0))
-		display.blit(herb, (250, 200))
+		display.blit(herb, (250, 350))
 		health = "All party members health has been decreased"
 		healthminus = myFont.render(health , 1, (0,0,0))
-		display.blit(healthminus, (100, 240))
+		display.blit(healthminus, (100, 390))
 		
 		party.decrPartyHealth(10)
 		party.updatePartyHealthEffect(-1)
@@ -196,7 +201,7 @@ class RandomEvents :
 		armstring = randPartyMember.getName() + \
 		 " broke an arm. Lost 50 health."
 		arm = myFont.render(armstring, 1, (0,0,0))
-		display.blit(arm, (50, 200))
+		display.blit(arm, (100, 350))
 		
 		randPartyMember.decrHealth(50)
 		randPartyMember.updateHealthEffect(-2)
@@ -220,7 +225,7 @@ class RandomEvents :
 		legstring = randPartyMember.getName() + \
 		" broke a leg. Lost 70 health."
 		leg = myFont.render(legstring, 1, (0,0,0))
-		display.blit(leg, (50, 200))
+		display.blit(leg, (100, 350))
 		
 		randPartyMember.decrHealth(70)
 		randPartyMember.updateHealthEffect(-5)
@@ -240,7 +245,7 @@ class RandomEvents :
 		
 		tigerString = "A wild tiger visciously killed the party."
 		tiger = myFont.render(tigerString , 1, (0,0,0))
-		display.blit(tiger, (150, 200))
+		display.blit(tiger, (150, 350))
 
 		party.setDead()
 		
