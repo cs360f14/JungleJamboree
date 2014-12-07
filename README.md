@@ -18,11 +18,21 @@ You and your party must try to survive the jungle as long as possible by foragin
 This game has been tested on OpenSUSE 13.1 64 bit.
 
 #### How to build the code
-
+	1. Ensure that Pygame is installed
+		- From the command line, type "python" and press enter.
+		- Type "import pygame" and press enter. If no errors occur, then Pygame is installed.
+		- Otherwise, you will have to install Pygame. 
+		- You can install Pygame with "sudo zypper install pygame" and "sudo zypper install pygame-doc"		[	[here](http://www.pygame.org/news.html)
+		- We are using Pygame version 1.9.1
+	2. Fork the repository 
+	3. From the command line, type "git clone git@github.com:USER/JungleJamboree.git" where USER is your username
+	2. Enter the JungleJamboree/Gameplay directory
+	3. Type "python Game.py &", and press enter.
 #### How to run the code
-
+	1. Change to the JungleJamboree/GamePlay directory
+	2. Type "python Game.py &", and press enter.
 #### Project dependent libraries and external software:
-Pygame version 1.9.1
+[Pygame version 1.9.1](http://www.pygame.org/news.html)
  
 ## Contributors
 
@@ -77,10 +87,12 @@ Our goal of this project is to make a working, enjoyable game that is easy for p
 
 ## Original Authors
 Evan Heydemann (eheydemann)
+* A Junior majoring in Mathematics and Computer Science at Pacific University in Forest Grove, Oregon
 
 Brianna Alcoran (bri-a)
+* A Junior majoring in Computer Science at Pacific University in Forest Grove, Oregon
 
 Bryan Stander (stan3971)
-
+* A Senior majoring in Nioinformatics at Pacific University in Forest Grove, Oregon
 
     
