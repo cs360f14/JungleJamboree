@@ -68,7 +68,7 @@ To connect to the IRC channel:
 
 
 ## Project Goals
-Our goal of this project is to make a working, enjoyable game that is easy for people to contribute to!
+Our goal of this project is to make a working, enjoyable game that is easy for people to contribute to! We would like this game to be able to expand with increased functions, mini-games, and more random events. 
 
 ## License 
 - Project
