@@ -256,14 +256,14 @@ imgyP5 = 440
 """
 
 testGame = Game()
-start = testGame._myFont3.render("START", 1, (255,255,255))
+start = testGame._myFont2.render("START", 1, (255,255,255))
 store = testGame._myFont2.render("STORE", 1, (255,255,255))
 forage = testGame._myFont2.render("FORAGE", 1, (255,255,255))
 inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
 party = testGame._myFont2.render("PARTY", 1, (255,255,255))
 #day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 #distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
-funds = testGame._myFont3.render("MONEY:", 1, (255,255,255))
+funds = testGame._myFont2.render("MONEY:", 1, (255,255,255))
 leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
 leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))
 testGame.on_loop()

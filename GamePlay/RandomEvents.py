@@ -150,7 +150,7 @@ class RandomEvents :
 		else :
 			randPartyMember = self.getRandomPartyMember(party)	
 			displayString =  randPartyMember.getName() + \
-			"snacked on some food during the night." 
+			" snacked on some food during the night." 
 			randPartyMember.incrHealth(10)
 			
 		lostFood = "You lost " + str(foodAmount) + "food."

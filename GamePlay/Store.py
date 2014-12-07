@@ -150,7 +150,7 @@ class Store (Inventory):
 				self.addItem(newItem)
 				self.updateCash(-amountPerItem * item.getCost())
 						
-		elif option == self.getSize (): #food
+		elif option == partyInv.getSize (): #food
 			if partyInv.checkFoodAmount (self, amountPerFood) :
 				partyInv.updateFood(-amountPerFood)
 				partyInv.updateCash(amountPerFood)
