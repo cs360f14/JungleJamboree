@@ -77,6 +77,9 @@ class Inventory :
 		"""updatets the amount of food"""
 		self._food += num
 		
+	def setFood (self, num) :
+		self._food = num
+		
 	def getCash (self) :
 		"""returns the amount of cash"""
 		return self._cash
