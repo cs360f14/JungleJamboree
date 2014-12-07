@@ -101,9 +101,15 @@ class Turn :
 		party.getInventory().displayInventory()
 		
 	def forageEvent(self, party, display) :
+		myFont = pygame.font.Font('freesansbold.ttf', 25) 
+		
 		if not self._Foraged :
 			self._randEvent.forageEvent(party, display)	
 			self._Foraged = True	
+		else :
+			foragedString = "There is no food left here."
+			foraged = myFont.render(foragedString , 1, (255,255,255))
+			display.blit(foraged, (240, 480))		
 			
 	def menu (self, party) :
 		"""displays menu options and handles each option"""

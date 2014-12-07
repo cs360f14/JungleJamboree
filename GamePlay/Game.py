@@ -181,10 +181,18 @@ class Game :
 		self._display.blit(imgForage, (0, 0))
 		self._display.blit(leave1, (750, 575))
 		self._turn.forageEvent(self._party, self._display)
-		if event.type == MOUSEBUTTONDOWN:
-			if self.checkMouse (mouse, 750, 800, 550, 600) :
-				self._state = "Home"
 		
+		pygame.display.update()
+		
+		waitEvent = pygame.event.wait()
+			
+		while not (waitEvent.type == MOUSEBUTTONDOWN and  \
+		self.checkMouse (mouse, 750, 800, 550, 600)):
+			mouse = pygame.mouse.get_pos()	
+			waitEvent = pygame.event.wait()
+
+		self._state = "Home"
+	
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (0, 0))
 		self._display.blit(leave2, (20, 550))
@@ -286,14 +294,14 @@ imgyP5 = 440
 """
 
 testGame = Game()
-start = testGame._myFont3.render("START", 1, (255,255,255))
+start = testGame._myFont2.render("START", 1, (255,255,255))
 store = testGame._myFont2.render("STORE", 1, (255,255,255))
 forage = testGame._myFont2.render("FORAGE", 1, (255,255,255))
 inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
 party = testGame._myFont2.render("PARTY", 1, (255,255,255))
 #day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 #distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
-funds = testGame._myFont3.render("MONEY:", 1, (255,255,255))
+funds = testGame._myFont2.render("MONEY:", 1, (255,255,255))
 leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
 leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))
 testGame.on_loop()
