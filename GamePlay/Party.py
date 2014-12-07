@@ -146,6 +146,8 @@ class Party :
 		return True
 	
 	def setDead(self) :
-		self._party[:] = []
-		self._size = 0
+		for person in self.generatePerson () :
+			person.setHealthTitle ("Dead")
+			person.setHealth (0)
+		
 					
