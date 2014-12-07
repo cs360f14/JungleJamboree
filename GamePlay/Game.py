@@ -28,7 +28,7 @@ class Game :
 		self._party = Party()
 		self._store = Store ()
 		self._store.setUpStore ()
-		#self._party.setUpParty () #don't forget to add this not in init
+		self._party.setUpParty () #don't forget to add this not in init
 		self._state = "Start"
 		self._width = 800
 		self._height = 600
@@ -69,6 +69,12 @@ class Game :
 					
 				elif self._state == "Party":
 					self.party (mouse, event)
+					
+				elif self._state == "Forage":
+					pass
+					
+				elif self._state == "travel":
+					pass
 
 			#the update for the screen		
 			pygame.display.update()
@@ -133,12 +139,39 @@ class Game :
 
 		
 	def party (self, mouse, event):
+		explorers = []
+		explorersStatus = []
+		explorersHealth = []
+		for person in self._party.generatePerson():
+			explorers.append(testGame._myFont2.render(person.getName(), 1, (0,0,0)))
+			explorersStatus.append(testGame._myFont2.render(person.getHealthTitle (), 1, (0,0,0)))
+			explorersHealth.append(testGame._myFont2.render(str(person.getHealth ()), 1, (0,0,0)))
+
 		self._display.blit(imgParty, (imgx, imgy))
 		self._display.blit(imgPerson1, (15, 15))
+		self._display.blit(explorers[0], (100, 30))
+		self._display.blit(explorersStatus[0], (100, 55))
+		self._display.blit(explorersHealth[0], (100, 80))
 		self._display.blit(imgPerson2, (15, 215))
+		self._display.blit(explorers[1], (100, 230))
+		self._display.blit(explorersStatus[1], (100, 255))
+		self._display.blit(explorersHealth[1], (100, 280))
 		self._display.blit(imgPerson3, (15, 415))
+		self._display.blit(explorers[2], (100, 430))
+		self._display.blit(explorersStatus[2], (100, 455))
+		self._display.blit(explorersHealth[2], (100, 480))
 		self._display.blit(imgPerson4, (400, 15))
+		self._display.blit(explorers[3], (490, 30))
+		self._display.blit(explorersStatus[3], (490, 55))
+		self._display.blit(explorersHealth[3], (490, 80))
 		self._display.blit(imgPerson5, (400, 215))
+		self._display.blit(explorers[4], (490, 230))
+		self._display.blit(explorersStatus[3], (490, 255))
+		self._display.blit(explorersHealth[3], (490, 280))
+		self._display.blit(leave1, (750, 575))
+		if event.type == MOUSEBUTTONDOWN:
+			if self.checkMouse (mouse, 750, 800, 550, 600) :
+				self._state = "Home"
 		
 	
 									
@@ -151,9 +184,9 @@ imgStore = pygame.image.load('Images/Shopkeep.png')
 imgParty = pygame.image.load('Images/PartyScreen.png')
 imgPerson1 = pygame.image.load('Images/Explorer1.png')
 imgInventory = pygame.image.load('Images/Inventory.png')
-imgPerson2 = pygame.image.load('Images/Person2.png')
+imgPerson2 = pygame.image.load('Images/Explorer2.png')
 imgPerson3 = pygame.image.load('Images/Explorer3.png')
-imgPerson4 = pygame.image.load('Images/Person4.png')
+imgPerson4 = pygame.image.load('Images/Explorer4.png')
 imgPerson5 = pygame.image.load('Images/Explorer5.png')
 imgx = 0
 imgy = 0
@@ -171,10 +204,10 @@ imgyP5 = 440
 
 testGame = Game()
 start = testGame._myFont3.render("START", 1, (255,255,255))
-store = testGame._myFont3.render("STORE", 1, (255,255,255))
-forage = testGame._myFont3.render("FORAGE", 1, (255,255,255))
-inventory = testGame._myFont3.render("INVENTORY", 1, (255,255,255))
-party = testGame._myFont3.render("PARTY", 1, (255,255,255))
+store = testGame._myFont2.render("STORE", 1, (255,255,255))
+forage = testGame._myFont2.render("FORAGE", 1, (255,255,255))
+inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
+party = testGame._myFont2.render("PARTY", 1, (255,255,255))
 day = testGame._myFont3.render("DAY:", 1, (255,255,255))
 distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
 funds = testGame._myFont3.render("MONEY:", 1, (255,255,255))
