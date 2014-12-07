@@ -11,6 +11,9 @@
 from Party import *
 from RandomEvents import *
 import os
+import pygame 
+from pygame.locals import *
+import sys
 
 """
 The Turn Module
@@ -25,14 +28,16 @@ class Turn :
 		self._distance = 0
 		self._distancePerDay = 5
 		self._randEvent = RandomEvents()
+		self._Foraged = False
 		self._running = True
 	
-	def updateTurn(self, party):
+	def updateTurn(self, party, display):
 		""" updates the turn """
+		self._Foraged = False
 		self._day += 1
 		self._distance += self._distancePerDay
 		self._randEvent.randNum()  #gets the random number
-		self._randEvent.event(party)
+		self._randEvent.event(party, display)
 		self.decrementFood (party)
 		party.updateHealth()
 		self.deadMember(party)
@@ -94,6 +99,11 @@ class Turn :
 		"""displays the passed in parties inventory"""
 		party.getInventory().displayInventory()
 		
+	def forageEvent(self, party) :
+		if not self._Foraged :
+			self._randEvent.forageEvent(party)	
+			self._Foraged = True	
+			
 	def menu (self, party) :
 		"""displays menu options and handles each option"""
 		option = self.displayMenu(party)
@@ -165,7 +175,7 @@ class Turn :
 	def getRunning (self) :
 		""" returns the status of the game """
 		return self._running
-	
+		
 	def partyDead(self, party):
 		"""  """
 		if party.checkPartyDead() :

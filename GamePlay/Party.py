@@ -43,7 +43,11 @@ class Party :
 		return name		
 		
 	def getSize (self) :
-		return self._size	
+		count = 0
+		for person in self.generatePerson (): 
+			if not person.deadPerson () :
+				count += 1
+		return count		
 		
 	def getPartyMember(self, num) :
 		""" returns the person in the party """
@@ -66,25 +70,32 @@ class Party :
 	def incrPartyHealth (self, num) :
 		""" increments health of all party members to the number passed in """
 		for person in self.generatePerson () :
-			person.incrHealth (num)	
+			if not person.deadPerson () :
+				person.incrHealth (num)	
 			
 	def decrPartyHealth (self, num) :
 		""" decrements health of all party members to the number passed in """
 		for person in self.generatePerson () :
-			person.decrHealth (num)	
+			if not person.deadPerson () :
+				person.decrHealth (num)	
 			
 	def updateHealth (self) :
+		""" updates health of all party members to the number passed in """
 		for person in self.generatePerson () :
-			person.updateHealth ()
+			if not person.deadPerson () :
+				person.updateHealth ()
 			
 	def updatePartyHealthEffect (self, num) :
+		""" updates the health effect of all party members 
+		to the number passed in """
 		for person in self.generatePerson() :
 			person.updateHealthEffect(num)
 			
 	def death (self) :
+		"""sets every person who is dead to a Dead health title"""
 		for person in self.generatePerson () :
 			if person.deadPerson () :
-				self._party. setHealthTitle ("Dead")
+				person.setHealthTitle ("Dead")
 				
 	def setInventory (self, inventory) :
 		"""sets the backpack to the passed in value """
@@ -123,9 +134,11 @@ class Party :
 		self._party.append(person)
 		
 	def checkPartyDead(self):
-		if self._size == 0 :
-			return True
-		return False
+		
+		for person in self.generatePerson () :
+			if not person.deadPerson () :
+				return False
+		return True
 	
 	def setDead(self) :
 		self._party[:] = []

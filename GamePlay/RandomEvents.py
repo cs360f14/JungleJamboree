@@ -10,6 +10,9 @@
 
 from random import *
 from Party import *
+import pygame 
+from pygame.locals import *
+import sys
 
 """
 The Random Events Module
@@ -39,7 +42,7 @@ class RandomEvents :
 		""" force random num - to force certain events """
 		self._randNum = num
 		
-	def forageEvent (self, party) :
+	def forageEvent (self, party, display) :
 		randNum = self._rand.randint(0, 100)
 		foodForaged = 0
 		
@@ -51,84 +54,96 @@ class RandomEvents :
 		print foodForaged, "food foraged."
 		party.updateFood(foodForaged)
 	
-	def event (self, party) :
+	def event (self, party, display) :
 		""" based on the random number, determine the event """
 		if self._randNum in self._noEventRange :
-			self.noEvent()
+			self.noEvent(display)
 			
 		elif self._randNum in self._goodEventRange :
-			self.upperEventGood(party)
+			self.upperEventGood(party, display)
 			
 		elif self._randNum in self._badEventRange :
-			self.upperEventBad(party)
-		print ""
+			self.upperEventBad(party, display)
 		
-	def noEvent (self) :
+	def noEvent (self, display) :
 		""" no event will happen """
-		print("No Event")
+		
+		myFont = pygame.font.Font('freesansbold.ttf', 30) # figure out different way
+		
+		noEvent = myFont.render("No Event" , 1, (0,0,0))
+		display.blit(noEvent, (350, 300))
 	
-	def upperEventGood (self, party) : #50-75
+	def upperEventGood (self, party, display) : #50-75
 		""" the possible good events """
-		print("Something good happened!")
+#		print("Something good happened!")
 		
 		#have inner ranges for different good events...
 		
 		if self._randNum in range(50,60) :
-			self.eventFoundFood(party)
+			self.eventFoundFood(party, display)
 		elif self._randNum in range(60, 75):
-			self.eventFoundGoodHerb(party)
+			self.eventFoundGoodHerb(party, display)
 	
-	def upperEventBad (self, party) : #75-100
+	def upperEventBad (self, party, display) : #75-100
 		""" the possible bad events """
 		#have inner ranges for different bad events
 		
-		#if the 100 was picked...
-		print("Oooo... something bad happened...")
+		
+#		print("Oooo... something bad happened...")
 		
 		if self._randNum in range(75,80) :
-			self.eventLostFood(party)
+			self.eventLostFood(party, display)
 		elif self._randNum in range(80, 85):
-			self.eventFoundBadHerb(party)
+			self.eventFoundBadHerb(party, display)
 		elif self._randNum in range (85, 93) :
-			self.eventBrokeArm(party)
+			self.eventBrokeArm(party, display)
 		elif self._randNum in range (93, 100) :
-			self.eventBrokeLeg(party)
+			self.eventBrokeLeg(party, display)
 		elif self._randNum == 100 :
-			self.eventTigerAttack(party)
+			self.eventTigerAttack(party, display)
 
 		
 	# good events! -----------------------------------------------------
 	
-	def eventFoundFood (self, party) :
+	def eventFoundFood (self, party, display) :
 		""" party randomly finds food - based on random number """
+		
+		"""
+		myFont = pygame.font.Font('freesansbold.ttf', 30) # figure out different way
+		
+		Food = myFont.render( "You found food!" , 1, (0,0,0))
+		display.blit(noEvent, (350, 300))
+		"""
 		
 		print "You found food!"
 		party.updateFood((self._randNum / 1))
 		print (self._randNum / 1), " food has been added to your inventory."
 		
-	def eventFoundGoodHerb (self, party) :
+	def eventFoundGoodHerb (self, party, display) :
 		""" party randomly finds a herb with healing effects """
 		
 		print "You found a healing herb!"
 		print "All party members health has been increased"
 		party.incrPartyHealth(10)
+		party.updatePartyHealthEffect(1)
 	
 		# other good events:
-
+	
 	
 	
 	# bad events! ------------------------------------------------------
 
-	def eventLostFood(self, party) : 
+	def eventLostFood(self, party, display) : 
 		""" party randomly loses food """
 		foodAmount = self._randNum / 4
 		
 		if foodAmount % 2 == 0 :
 			print "Bugs got into some food! You had to leave some behind."
 		else :
-			randPartyMember = self._rand.randint(0, party.getSize()-1)
-			print party.getPartyMember(randPartyMember).getName(), "snacked on some food during the night." 
-			party.getPartyMember(randPartyMember).incrHealth(10)
+				
+			randPartyMember = self.getRandomPartyMember(party)	
+			print randPartyMember.getName(), "snacked on some food during the night." 
+			randPartyMember.incrHealth(10)
 			
 		print "You lost ", foodAmount, "food."
 		
@@ -143,55 +158,63 @@ class RandomEvents :
 		else :
 			pass
 	
-	def eventFoundBadHerb (self, party) :
+	def eventFoundBadHerb (self, party, display) :
 		""" party randomly finds a herb with negative effects """
 		
 		print "You found a poisonous herb!"
 		print "All party members health has been decreased"
 		party.decrPartyHealth(10)
 		
-	def eventBrokeArm (self, party) :
+	def eventBrokeArm (self, party, display) :
 		""" party member randomly breaks an arm """
 		effect = "Broken Arm"
 		
-		randPartyMember = self._rand.randint(0, party.getSize()-1)
-		print party.getPartyMember(randPartyMember).getName(), "broke an arm. Lost 50 health."
-		party.getPartyMember(randPartyMember).decrHealth(50)
-		party.getPartyMember(randPartyMember).updateHealthEffect(-2)
+		randPartyMember = self.getRandomPartyMember(party)	
+		print randPartyMember.getName(), "broke an arm. Lost 50 health."
+		randPartyMember.decrHealth(50)
+		randPartyMember.updateHealthEffect(-2)
 		
-		if party.getPartyMember(randPartyMember).getHealthTitle() == "Healthy" :
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
-		elif party.getPartyMember(randPartyMember).getHealthTitle() == "Broken Leg" :
+		if randPartyMember.getHealthTitle() == "Healthy" :
+			randPartyMember.setHealthTitle(effect)
+		elif randPartyMember.getHealthTitle() == "Broken Leg" :
 			effect = "Broken arm and broken leg"
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
+			randPartyMember.setHealthTitle(effect)
 		else :
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
+			randPartyMember.setHealthTitle(effect)			
+			
 		
-	def eventBrokeLeg (self, party) :
+	def eventBrokeLeg (self, party, display) :
 		""" party member randomly breaks an arm """
 		effect = "Broken Leg"
 		
-		randPartyMember = self._rand.randint(0, party.getSize()-1)
-		print party.getPartyMember(randPartyMember).getName(), "broke a leg. Lost 70 health."
-		party.getPartyMember(randPartyMember).decrHealth(70)
-		party.getPartyMember(randPartyMember).updateHealthEffect(-5)
+		randPartyMember = self.getRandomPartyMember(party)
+		print randPartyMember.getName(), "broke a leg. Lost 70 health."
+		randPartyMember.decrHealth(70)
+		randPartyMember.updateHealthEffect(-5)
 		
-		if party.getPartyMember(randPartyMember).getHealthTitle() == "Healthy" :
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
-		elif party.getPartyMember(randPartyMember).getHealthTitle() == "Broken Arm" :
+		if randPartyMember.getHealthTitle() == "Healthy" :
+			randPartyMember.setHealthTitle(effect)
+		elif randPartyMember.getHealthTitle() == "Broken Arm" :
 			effect = "Broken arm and broken leg"
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
+			randPartyMember.setHealthTitle(effect)
 		else :
-			party.getPartyMember(randPartyMember).setHealthTitle(effect)
+			randPartyMember.setHealthTitle(effect)
 	
-	def eventTigerAttack (self, party) :
+	def eventTigerAttack (self, party, display) :
 		""" the whole party dies """
 		
 		print "A wild tiger visciously killed the party. \n"
 		party.setDead()
 		
 	# other bad events (got a disease, lost the machete, broke an arm)
-
+	
+	def getRandomPartyMember (self, party) :
+		
+		if not party.checkPartyDead() :
+			randPartyMember = self._rand.randint(0, party.getSize()-1)
+			while party.getPartyMember(randPartyMember).deadPerson() :
+				randPartyMember = self._rand.randint(0, party.getSize()-1)
+			return party.getPartyMember(randPartyMember)
 
 """
 party = Party()
