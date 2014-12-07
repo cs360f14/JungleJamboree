@@ -42,7 +42,12 @@ class Party :
 		name = raw_input("Enter Name: ")
 		return name		
 		
+	def getInitialSize (self) :
+		"""returns the initial size of the party"""
+		return self._size	
+		
 	def getSize (self) :
+		"""returns the current amount of live party members"""
 		count = 0
 		for person in self.generatePerson (): 
 			if not person.deadPerson () :

@@ -100,9 +100,6 @@ class Game :
 		self._turn.updateTurn(self._party, self._display)
 		pygame.display.update()
 		
-#		mousePress = pygame.mouse.get_pressed ()		
-#		while not (mousePress[0] or mousePress[1] or mousePress[2] and \
-#		self.checkMouse (mouse, 20, 60, 550, 570)) :	
 		waitEvent = pygame.event.wait()
 			
 		while not (waitEvent.type == MOUSEBUTTONDOWN and  \
@@ -166,7 +163,8 @@ class Game :
 		
 		travelFont = self._myFont2.render("TRAVEL", 1, (255,255,255))	
 		self._display.blit(travelFont, (10, 500))
-		
+		self._turn.displayMenu(self._party, self._display)
+		"""		
 		dayString = "DAY:  " + str(self._turn.getDay())
 		day = self._myFont2.render(dayString, 1, (255,255,255))	
 		self._display.blit(day, (300, 270))
@@ -174,7 +172,11 @@ class Game :
 		disString = "DISTANCE:  " + str(self._turn.getDistance())
 		distance = self._myFont2.render(disString, 1, (255,255,255))	
 		self._display.blit(distance, (300, 300))
-				
+		
+		foodString = "FOOD AMOUNT:  " + str(self._party.getFood())
+		food = self._myFont2.render(foodString, 1, (255,255,255))	
+		self._display.blit(food, (300, 330))
+		"""				
 	def forage (self, mouse, event) :
 		self._display.blit(imgForage, (0, 0))
 		self._display.blit(leave1, (750, 575))

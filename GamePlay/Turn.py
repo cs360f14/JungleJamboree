@@ -40,7 +40,7 @@ class Turn :
 		self._randEvent.event(party, display)
 		self.decrementFood (party)
 		party.updateHealth()
-		self.deadMember(party)
+		self.deadMember(party, display)
 		self.partyDead(party)
 	
 	def getDay (self) :
@@ -135,14 +135,28 @@ class Turn :
 			level = int(raw_input ("Food Level either 1 (Starving) or 2 (Adequate) or 3 (Stuffed):  "))
 		return level		
 			
-	def displayMenu (self, party) :
+	def displayMenu (self, party, display) :
 		""" display the Menu and return the option """
-		print "Food Rations: ", self.foodLevel()
-		print "Day Number:", self._day
-		print "Distance:", self._distance
-		print ""
-		"""option = self.displayOptions()
-		return option """
+		
+		myFont2 = pygame.font.Font('freesansbold.ttf', 25)
+		
+		dayString = "DAY:  " + str(self._day)
+		day = myFont2.render(dayString, 1, (255,255,255))	
+		display.blit(day, (300, 270))
+		
+		disString = "DISTANCE:  " + str(self._distance)
+		distance = myFont2.render(disString, 1, (255,255,255))	
+		display.blit(distance, (300, 300))
+		
+		foodString = "FOOD AMOUNT:  " + str(party.getFood())
+		food = myFont2.render(foodString, 1, (255,255,255))	
+		display.blit(food, (300, 330))
+		
+		foodLevelString = "FOOD LEVEL:  " + str(self.foodLevel())
+		foodLevel = myFont2.render(foodLevelString, 1, (255,255,255))	
+		display.blit(foodLevel, (300, 360))
+		
+		
 		
 	def displayOptions (self) :	
 		""" display menu options """
@@ -181,9 +195,19 @@ class Turn :
 		if party.checkPartyDead() :
 			self._running = False
 	
-	def deadMember (self, party) :
+	def deadMember (self, party, display) :
+				
+		myFont = pygame.font.Font('freesansbold.ttf', 30) 
+		
+
+		
 		for person in party.generatePerson() :
-			if person.deadPerson() :
+			if person.deadPerson() and person.getHealthTitle != "Dead":
+						
+				personString = person.getName()+ "died."
+				dPerson = myFont.render(personString , 1, (255,0,0))
+				display.blit(dPerson, (350, 500))
+				
 				print person.getName(), "died.\n"
 				party.death()
 				person.setHealthTitle("Dead")
