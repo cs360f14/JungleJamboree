@@ -12,6 +12,7 @@ import pygame
 from pygame.locals import *
 from Party import *
 from Store import *
+from Turn import *
 import sys
 
 """
@@ -26,6 +27,7 @@ class Game :
 		self._running = True
 		self._display = None
 		self._party = Party()
+		self._turn = Turn()
 		self._store = Store ()
 		self._store.setUpStore ()
 		self._party.setUpParty () #don't forget to add this not in init
@@ -71,6 +73,7 @@ class Game :
 					self.party (mouse, event)
 					
 				elif self._state == "Forage":
+					self.forage (mouse, event)
 					pass
 					
 				elif self._state == "travel":
@@ -111,12 +114,24 @@ class Game :
 				self._state = "Store"
 		
 		if event.type == MOUSEBUTTONDOWN:
+			if self.checkMouse (mouse, 8, 160, 410, 435) :
+				self._state = "Forage"
+				
+		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 8, 160, 440, 465) :
 				self._state = "Inventory"
 				
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 8, 95, 470, 500) :
 				self._state = "Party"
+				
+				
+	def forage (self, mouse, event) :
+		self._display.blit(imgForage, (imgx, imgy))
+		self._display.blit(leave1, (750, 575))
+		if event.type == MOUSEBUTTONDOWN:
+			if self.checkMouse (mouse, 750, 800, 550, 600) :
+				self._state = "Home"
 		
 	def inventory (self, mouse, event) :
 		self._display.blit(imgInventory, (imgx, imgy))
@@ -180,6 +195,7 @@ imgStart = pygame.image.load('Images/StartScreen.png')
 imgJungle = pygame.image.load('Images/HomeScreen.png')
 imgStore = pygame.image.load('Images/Shopkeep.png')
 imgParty = pygame.image.load('Images/PartyScreen.png')
+imgForage = pygame.image.load('Images/ForageScreen.png')
 imgPerson1 = pygame.image.load('Images/Explorer1.png')
 imgInventory = pygame.image.load('Images/Inventory.png')
 imgPerson2 = pygame.image.load('Images/Explorer2.png')
