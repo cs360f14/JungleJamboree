@@ -26,9 +26,16 @@ class Party :
 		self._backpack = Inventory()
 		
 	def setUpParty (self) :
-		"""Sets up a party """
+		"""Sets up a party 
 		for x in range(self._size) :
-			self._party.append(Person(self.getName())) 
+			self._party.append(Person(self.getName())) """
+			
+		self._party.append(Person("Iowa Smith"))
+		self._party.append(Person("Dorthy"))
+		self._party.append(Person("Larry Fills"))
+		self._party.append(Person("Laureen Kraft"))
+		self._party.append(Person("Jeb the Forest Man"))
+		
 	
 	def getName (self) :
 		""" Get a name for each party person"""
@@ -77,8 +84,7 @@ class Party :
 	def death (self) :
 		for person in self.generatePerson () :
 			if person.deadPerson () :
-				self._party.remove(person)
-				self._size -= 1
+				self._party. setHealthTitle ("Dead")
 				
 	def setInventory (self, inventory) :
 		"""sets the backpack to the passed in value """
