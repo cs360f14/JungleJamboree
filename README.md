@@ -72,6 +72,8 @@ Our goal of this project is to make a working, enjoyable game that is easy for p
 ## License 
 MIT
 * http://opensource.org/licenses/MIT
+Images licensed under 
+* [Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/)
 
 ## Original Authors
 Evan Heydemann (eheydemann)
