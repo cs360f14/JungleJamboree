@@ -47,11 +47,11 @@ class Store (Inventory):
 			if self.checkMouse (mouse, 15, 100, 415, 440) :
 				self._storeState = "buy"
 				self._inStore = True
-				pass
+				
 			elif self.checkMouse (mouse, 15, 100, 445, 470) :
-				self._storeState = "sell"	
+				self._storeState = "sell"
+				self._inStore = True
 
-				pass
 			elif self.checkMouse (mouse, 15, 100, 475, 500) :	
 				self._storeState = "trade"
 	
@@ -62,15 +62,17 @@ class Store (Inventory):
 		
 						
 		if self._storeState == "buy":
+#			pygame.draw.rect(display, (0,255,0), (0,0, 300, 300))
 			selectBuyString = "Please select the item you wish to buy."
 			selectBuy = myFont.render(selectBuyString, 1, (255, 255, 255))
 			display.blit(selectBuy, (450, 50))		
 			self.buy (party, mouse, event, display)
 		elif self._storeState == "sell" and self._inStore :	
+#			pygame.draw.rect(display, (0,255,0), (0,0, 300, 300))	
 			selectSellString = "Please select the item you wish to sell."
 			selectSell = myFont.render(selectSellString, 1, (255, 255, 255))
 			display.blit(selectSell, (450, 50))			
-			#self.sell (party)
+			self.sell (party, mouse, event, display)
 			pass
 		elif self._storeState == "trade" :		
 			cantTradeString = "Sorry I have nothing to trade."
@@ -91,8 +93,10 @@ class Store (Inventory):
 		"""Initalizes the items in the store"""
 		machete = Item ("Machete", 1, 40.00)
 		self.addItem (machete)
-		pills = Item ("Pills", 100, 1.00)
-		self.addItem(pills)
+		firstAidKit = Item ("First Aid Kit", 10, 20.00)
+		self.addItem(firstAidKit)
+		rope = Item ("Rope", 100, 5.00)
+		self.addItem(rope)
 		
 	def buy (self, party, mouse, event, display) : 	
 		""" displays the stores wares and allows the party to buy items 
@@ -102,16 +106,16 @@ class Store (Inventory):
 		self.displayInventory(mouse, event, display)
 		
 		option = self.getItemSelection(mouse, event)
-		
-#		while option <= self.getSize ():
+
 		if option < self.getSize () and option >= 0 : #item in inventory
 			item = self.returnItem (option)
+			newItem = item.CopyItem ()
+			newItem.setQuantity (amountPerItem)
 			if self.checkItemAmount (item, party.getInventory(), \
 			amountPerItem) :
-				item.updateQuantity(-amountPerItem)
-				self.removeItem(item)
+				self.removeItem(newItem)
 				self.updateCash(amountPerItem * item.getCost())
-				party.addToInventory(item)
+				party.addToInventory(newItem)
 				party.updateCash(-amountPerItem * item.getCost())
 						
 		elif option == self.getSize (): #food
@@ -124,37 +128,40 @@ class Store (Inventory):
 			
 		self.displayInventory(mouse, event, display)
 #		self._storeState = ""
-#			option = self.getItemSelection(mouse, event)		
-	"""		
-	def buy (self, party) :	
 
-		self.displayInventory()
-		option = self.getOption ()
+
+	def sell (self, party, mouse, event, display) : 	
+		""" displays the parties wares and allows the party to sell 
+		items to the store """	
+		amountPerItem = 1
+		amountPerFood = 10
+		partyInv = 	party.getInventory()
+		partyInv.displayInventory(mouse, event, display)
 		
-		while option <= self.getSize () :
+		option = partyInv.getItemSelection(mouse, event)
+		
+		if option < partyInv.getSize () and option >= 0 : #item in inventory
+			item = partyInv.returnItem (option)
+			newItem = item.CopyItem ()
+			newItem.setQuantity (amountPerItem)
+			if partyInv.checkItemAmount (item, self, amountPerItem) :
+				partyInv.removeItem(newItem)
+				partyInv.updateCash(amountPerItem * item.getCost())
+				self.addItem(newItem)
+				self.updateCash(-amountPerItem * item.getCost())
+						
+		elif option == self.getSize (): #food
+			if partyInv.checkFoodAmount (self, amountPerFood) :
+				partyInv.updateFood(-amountPerFood)
+				partyInv.updateCash(amountPerFood)
+				self.updateFood(amountPerFood)
+				self.updateCash(-amountPerFood)
 			
-			if option <= self.getSize () : #an item in the inventory
-				item = self.returnItem (option - 1)	
-				amount = self.getAmountStore (item, party)
-				item.updateQuantity(-amount)
-				self.removeItem(item)
-				self.updateCash(amount * item.getCost())
-				party.addToInventory(item)
-				party.updateCash(-amount * item.getCost())
-				
-			elif option == self.getSize () + 1 :#food
-				amount = self.getAmountStoreFood (party)
-				self.updateFood(-amount)
-				self.updateCash(amount)
-				party.updateFood(amount)
-				party.updateCash(-amount)
-				
-			self.displayInventory()	
-			option = self.getOption ()			
-	"""	
-	def sell (self, party):
-		""" displays the parties wares and allows the party to buy items 
-			from the store """
+		partyInv.displayInventory(mouse, event, display)
+#		self._storeState = ""
+
+		
+		"""
 		party.getInventory().displayInventory()
 		option = self.getOption ()
 		while option <= self.getSize () + 1 :
@@ -177,7 +184,7 @@ class Store (Inventory):
 				
 			party.getInventory().displayInventory()
 			option = self.getOption ()		
-	
+		"""
 """
 
 

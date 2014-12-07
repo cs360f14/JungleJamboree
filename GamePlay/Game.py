@@ -79,9 +79,7 @@ class Game :
 		self._display.blit(imgStore, (imgx, imgy))
 		self._display.blit(leave1, (20, 550))
 		self._store.menu (self._party, self._display, mouse, event)
-#		self._store.displayInventory (mouse, event, self._display)
 		option = self._store.getItemSelection(mouse, event)
-		
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 20, 60, 550, 570) :
 				self._state = "Home"
