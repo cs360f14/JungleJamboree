@@ -17,8 +17,8 @@ This game has been tested on OpenSUSE 13.1 64 bit.
 		- We are using Pygame version 1.9.1
 	2. Fork the repository 
 	3. From the command line, type "git clone git@github.com:USER/JungleJamboree.git" where USER is your username
-	2. Enter the JungleJamboree/Gameplay directory
-	3. Type "python Game.py &", and press enter.
+	4. Enter the JungleJamboree/Gameplay directory
+	5. Type "python Game.py &", and press enter.
 #### How to run the code
 	1. Change to the JungleJamboree/GamePlay directory
 	2. Type "python Game.py &", and press enter.
