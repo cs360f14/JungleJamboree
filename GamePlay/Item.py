@@ -24,8 +24,17 @@ class Item :
 	def getName(self):
 		return self._name
 		
+	def CopyItem (self):
+		"""returns a copy of the current item"""
+		item = Item (self._name , self._quantity, self._cost)
+		
+		return item	
+		
 	def updateQuantity (self, value) :
 		self._quantity = self._quantity + value
+		
+	def setQuantity (self, value) :
+		self._quantity = value	
 		
 	def __str__(self) :
 		return self._name + "  Quantity: " + str(self._quantity) + \

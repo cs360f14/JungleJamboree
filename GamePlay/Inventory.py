@@ -61,6 +61,7 @@ class Inventory :
 		for item in self.generateItem() :
 			if item.getName() == rItem.getName() :
 				if item.getQuantity() < rItem.getQuantity() :
+
 					item.updateQuantity(-item.getQuantity()) #still need to change
 					#set to 0
 					self._items.remove(item) # may not work
@@ -110,10 +111,11 @@ class Inventory :
 	def getItemSelection (self, mouse, event) :
 		"""Gets the correct item or food selection from the screen"""
 		myFont = pygame.font.Font('freesansbold.ttf', 15)	
+		
 		goodOption = False
 		option = -1
 		stringHeight = 70
-		if event.type == KEYDOWN:
+		if pygame.mouse.get_pressed ()[2] :
 			if self.checkMouse (mouse, 5, 100, stringHeight - 5, \
 			stringHeight + 25) :
 				option = self.getSize()
@@ -132,7 +134,6 @@ class Inventory :
 				goodOption = True
 			if not goodOption:
 				option = -2	
-				
 		return option	
 	
 		"""
