@@ -99,9 +99,9 @@ class Turn :
 		"""displays the passed in parties inventory"""
 		party.getInventory().displayInventory()
 		
-	def forageEvent(self, party) :
+	def forageEvent(self, party, display) :
 		if not self._Foraged :
-			self._randEvent.forageEvent(party)	
+			self._randEvent.forageEvent(party, display)	
 			self._Foraged = True	
 			
 	def menu (self, party) :
