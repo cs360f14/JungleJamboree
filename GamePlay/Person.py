@@ -98,9 +98,6 @@ class Person :
 		self._healthEffect = value			
 		
 	def deadPerson (self) :
-		if  (self._health <= 0 or self._healthTitle == "Dead") :
-			print self._name, "true"
-
 		return (self._health <= 0 or self._healthTitle == "Dead")
 		
 		
