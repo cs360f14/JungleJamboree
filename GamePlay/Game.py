@@ -51,10 +51,10 @@ class Game :
 		while(True):
 			mouse = pygame.mouse.get_pos()
 			for event in pygame.event.get():
-			"""allows you to see what the last input was in 
-			   the geany output window.
-			   un comment the line below for testing """
-				#print event 
+				"""allows you to see what the last input was in 
+				the geany output window. un comment the line 
+				below for testing """
+			   #print event 
 
 				#called when you hit the X
 				if event.type == QUIT:
@@ -63,10 +63,10 @@ class Game :
 					
 				if self._party.checkPartyDead () :
 					self._state == "GameOver"
-					self.gameOver ()
+					self.gameOver (event)
 					
 				if self._state == "GameOver":
-					self.gameOver ()
+					self.gameOver (event)
 					
 				elif self._state == "Start":
 					self.startButton (mouse, event)
@@ -261,7 +261,7 @@ class Game :
 			if self.checkMouse (mouse, 750, 800, 550, 600) :
 				self._state = "Home"
 		
-	def gameOver (self):
+	def gameOver (self, event):
 		""" once the game has ended (every party member has died),
 			opens the game over screen """
 		
@@ -272,9 +272,12 @@ class Game :
 		pygame.display.update ()
 		waitEvent = pygame.event.wait()
 		
-		while not (waitEvent.type == MOUSEBUTTONDOWN ) :
+		while not (waitEvent.type == QUIT) :
 			mouse = pygame.mouse.get_pos()	
 			waitEvent = pygame.event.wait()
+		
+		pygame.quit()
+		sys.exit()
 
 
 pygame.display.set_caption('Jungle Jamboree')

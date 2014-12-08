@@ -35,7 +35,7 @@ class RandomEvents :
 		
 	def randNum (self) :
 		""" generates a new random number """
-		elf._randNum = self._rand.randint(0,100)
+		self._randNum = self._rand.randint(0,100)
 		
 	def setRandNum (self, num) : 
 		""" force random num - to force certain events """
@@ -78,8 +78,8 @@ class RandomEvents :
 		""" no event will happen - """
 		
 		myFont = pygame.font.Font('freesansbold.ttf', 30)
-		noEvent = myFont.render("No Event" , 1, (0,0,0))
-		display.blit(noEvent, (350, 350))
+		noEvent = myFont.render("Traveled Safely" , 1, (0,0,0))
+		display.blit(noEvent, (300, 350))
 	
 	def upperEventGood (self, party, display) :  
 		""" the possible good events """
@@ -107,12 +107,20 @@ class RandomEvents :
 		elif self._randNum in range(80, 85):
 			self.eventFoundBadHerb(party, display)
 		
+		# party swarmed by mosquitos
+		elif self._randNum in range (85, 90) :
+			self.eventMosquitoSwarm(party, display)
+			
+		# monkeys stole food
+		elif self._randNum in range (90, 94) :
+			self.eventMonkeyAttack(party, display)
+		
 		# a party member broke an arm
-		elif self._randNum in range (85, 93) :
+		elif self._randNum in range (94, 97) :
 			self.eventBrokeArm(party, display)
 		
 		# a party member broke a leg
-		elif self._randNum in range (93, 100) :
+		elif self._randNum in range (97, 100) :
 			self.eventBrokeLeg(party, display)
 		
 		# a wild tiger kills entire party
@@ -134,9 +142,9 @@ class RandomEvents :
 		
 		Food = myFont.render( "You found food!" , 1, (0,0,0))
 		display.blit(Food, (350, 350))
-		amountString = str(self._randNum / 1) + \
+		amountString = str(self._randNum / 2) + \
 		" food has been added to your inventory."
-		amount = myFont.render(amountString , 1, (0,0,0))
+		amount = myFont.render(amountString , 2, (0,0,0))
 		display.blit(amount, (150, 390))
 		
 	def eventFoundGoodHerb (self, party, display) :
@@ -214,6 +222,19 @@ class RandomEvents :
 		party.decrPartyHealth(10)
 		party.updatePartyHealthEffect(-1)
 		
+	def eventMosquitoSwarm (self, party, display) :
+		""" mosquito swarm attacks the party, negative health effect """
+		
+		myFont = pygame.font.Font('freesansbold.ttf', 30) 
+		
+		herb = myFont.render("A mosquito swarm attcked the party!" , 1, (0,0,0))
+		display.blit(herb, (200, 350))
+		health = "All party members health has been decreased"
+		healthminus = myFont.render(health , 1, (0,0,0))
+		display.blit(healthminus, (50, 390))
+		
+		party.decrPartyHealth(8)
+		
 	def eventBrokeArm (self, party, display) :
 		""" party member randomly breaks an arm """
 		
@@ -263,6 +284,33 @@ class RandomEvents :
 		else :
 			randPartyMember.setHealthTitle(effect)
 	
+	def eventMonkeyAttack (self, party, display) :
+		""" a wild monkey attacked the party and stole food """
+		
+		foodAmount = self._randNum / 4
+		
+		myFont = pygame.font.Font('freesansbold.ttf', 30) 
+		
+		message = myFont.render("A bunch of monkeys stole some food!" , 1, (0,0,0))
+		display.blit(message, (250, 350))
+		food = "Party food has been decreased."
+		foodminus = myFont.render(food , 1, (0,0,0))
+		display.blit(foodminus, (100, 390))
+		
+		if party.getFood() - foodAmount <= 0 :
+			party.updateFood(-(party.getFood()))
+		else :
+			party.updateFood(-foodAmount)
+		
+		if party.getFood() == 0 :
+			party.setDead()
+			Dead = \
+			myFont.render( "All party members are dead.", 1, (0,0,0))
+			display.blit(Dead, (250, 450))
+		else :
+			pass
+		
+	
 	def eventTigerAttack (self, party, display) :
 		""" the whole party dies from the tiger attack """
 		
@@ -285,7 +333,7 @@ class RandomEvents :
 		""" returns a random party member (not dead members) """
 		
 		if not party.checkPartyDead():
-			randPartyMember = \ 
+			randPartyMember = \
 			self._rand.randint(0, party.getInitialSize()-1)
 			while party.getPartyMember(randPartyMember).deadPerson() :
 				randPartyMember = \
