@@ -63,7 +63,7 @@ For documentation please use:
 ##################################
 ```
 #### Testing Requirements
-For testing purposes please contribute a unit test in the corresponding unit test file.
+For testing purposes please contribute a unit test in the corresponding unit test file. Unittests should be run before making a pull request with changes to a file.
 In the future, we plan on using [Travis](https://travis-ci.org/) for testing. If this does happen, we will also require that all tests pass before merging the pull request.
 
 #### Communication
