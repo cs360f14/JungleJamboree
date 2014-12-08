@@ -50,7 +50,18 @@ Code commits and pull requests:
 For documentation please use:
    * [Style Guide for Python Code](http://legacy.python.org/dev/peps/pep-0008/)
    * [pydoc](https://docs.python.org/3/library/pydoc.html) is required! 
+   * Also if creating any new files please use the header:
 
+```
+#!/usr/bin/python
+##################################
+# File Name: 	Game.py
+# Author: 	Group 3
+# Date: 	11/10/2014
+# Project:	Jungle Jamboree
+# Purpose: 	Game class
+##################################
+```
 #### Testing Requirements
 For testing purposes please contribute a unit test in the corresponding unit test file.
 In the future, we plan on using [Travis](https://travis-ci.org/) for testing. If this does happen, we will also require that all tests pass before merging the pull request.
@@ -68,7 +79,7 @@ To connect to the IRC channel:
 
 
 ## Project Goals
-Our goal of this project is to make a working, enjoyable game that is easy for people to contribute to! We would like this game to be able to expand with increased functions, mini-games, and more random events. 
+Our goal of this project is to make a working, enjoyable game that is easy for people to contribute to! We would like this game to be able to expand with increased functions, mini-games, and more random events. For current milestones go to the milestone section this repository on github.
 
 ### New Features
 Our goal would be to have new environments that can affect the party and provide situations that would allow the player to make decisions that can impact the game itself. We would also like a hunting mini game to supplement the foraging to provide a more interactive experience for the player. Right now the user really only clicks on a couple buttons for the whole game.
