@@ -70,6 +70,9 @@ To connect to the IRC channel:
 ## Project Goals
 Our goal of this project is to make a working, enjoyable game that is easy for people to contribute to! We would like this game to be able to expand with increased functions, mini-games, and more random events. 
 
+### New Features
+Our goal would be to have new environments that can affect the party and provide situations that would allow the player to make decisions that can impact the game itself. We would also like a hunting mini game to supplement the foraging to provide a more interactive experience for the player. Right now the user really only clicks on a couple buttons for the whole game.
+
 ## License 
 - Project
    - [MIT](http://opensource.org/licenses/MIT)
