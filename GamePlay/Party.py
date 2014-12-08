@@ -3,8 +3,7 @@
 # File Name: Party.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Party to class to handle a group of persons
 ##################################
 
@@ -15,12 +14,11 @@ from Inventory import *
 The Party Module
 """
 
-
 class Party :
 	
 	def __init__ (self) :
 		""" initializes the size then creates a
-			party list and inventory"""
+			party list and inventory """
 		self._size = 5 # may be subject to change
 		self._party = []
 		self._backpack = Inventory()
@@ -59,6 +57,7 @@ class Party :
 		return self._party[num]
 		
 	def displayParty (self) :
+		""" iterates through the party, displaying each person """
 		for person in self.generatePerson() :
 			person.displayPerson()
 		
@@ -68,24 +67,28 @@ class Party :
 			yield person	
 			
 	def setPartyHealth (self, num) : 
-		""" sets health of all party members to the number passed in """
+		""" sets health of all party members to the number 
+			passed in """
 		for person in self.generatePerson () :
 			person.setHealth (num)	
 	
 	def incrPartyHealth (self, num) :
-		""" increments health of all party members to the number passed in """
+		""" increments health of all party members to the number 
+			passed in """
 		for person in self.generatePerson () :
 			if not person.deadPerson () :
 				person.incrHealth (num)	
 			
 	def decrPartyHealth (self, num) :
-		""" decrements health of all party members to the number passed in """
+		""" decrements health of all party members to the number 
+			passed in """
 		for person in self.generatePerson () :
 			if not person.deadPerson () :
 				person.decrHealth (num)	
 			
 	def updateHealth (self) :
-		""" updates health of all party members to the number passed in """
+		""" updates health of all party members to the number 
+			passed in """
 		for person in self.generatePerson () :
 			if not person.deadPerson () :
 				person.updateHealth ()

@@ -3,17 +3,18 @@
 # File Name: JungleJamboree.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Game Logic 
 ##################################
 
 from Store import *
 from Turn import *
 from Party import *
+
 """
 The Jungle Jamboree Module
 """
+
 class JungleJamboree :
 	
 	

@@ -3,8 +3,7 @@
 # File Name: Person.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Person class
 ##################################
 
@@ -80,7 +79,9 @@ class Person :
 			self._health += num
 	
 	def updateHealth (self) :
-		""" updates the person's health, taking into account the current health effect """
+		""" updates the person's health, taking into account 
+			the current health effect """
+		
 		if self._health + self._healthEffect > 100 :
 			self._health = 100
 		elif self._health + self._healthEffect > 0 :
@@ -98,6 +99,8 @@ class Person :
 		self._healthEffect = value			
 		
 	def deadPerson (self) :
+		""" returns true if the person has health 0 or less or has a 
+			health title of "Dead" """
 		return (self._health <= 0 or self._healthTitle == "Dead")
 		
 		
