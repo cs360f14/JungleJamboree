@@ -3,8 +3,7 @@
 # File Name: TestFile.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 To test the pygame
 ##################################
 

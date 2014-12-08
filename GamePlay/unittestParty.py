@@ -3,21 +3,24 @@
 # File Name: unittestParty.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 unittest for Party module
 ##################################
 
 import unittest
 from Party import *
+
 """
 The Unittest for Party Module
 """
+
+# tests not necessary for IO related functions
 
 class testParty(unittest.TestCase) :
 	
 	def setUp (self) :
 		""" sets up a party and 5 people for a party"""
+		
 		self.party = Party ()
 		self.person1 = Person("Black Knight", -99)
 		self.person2 = Person("Knights who say Ni", -1)
@@ -27,6 +30,7 @@ class testParty(unittest.TestCase) :
 		
 	def test_addPerson (self) :
 		""" tests that add a person works correctly"""
+		
 		self.party.addPerson(self.person1)
 		isIn = False
 		
@@ -39,6 +43,7 @@ class testParty(unittest.TestCase) :
 	def test_removePerson (self) :
 		""" tests that person2 is removed correctly and person1 is 
 		still in the party"""
+		
 		self.party.addPerson(self.person1)
 		self.party.addPerson(self.person2)
 		Person1isIn = False
@@ -62,7 +67,8 @@ class testParty(unittest.TestCase) :
 		self.assertFalse (Person2isIn)
 		
 	def test_UpdateHealth (self) :
-		"""tests that the parties health is updated correctly"""	
+		"""tests that the parties health is updated correctly"""
+		
 		self.party.updateHealth ()
 		for person in self.party.generatePerson () :
 			self.assertEqual (person.getHealth (), \

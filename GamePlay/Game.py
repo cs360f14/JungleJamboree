@@ -3,8 +3,7 @@
 # File Name: Game.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Game class
 ##################################
 
@@ -24,6 +23,7 @@ class Game :
 	def __init__(self) :
 		"""sets running to true, and creates a party and begins setting
 		 up a pygame display """
+		 
 		self._running = True
 		self._display = None
 		self._party = Party()
@@ -44,13 +44,17 @@ class Game :
 		pygame.display.set_caption('Jungle Jamboree')
 	
 	def on_loop (self):
+		""" main game loop that is executed while the game is running"""
+		
 		self._display.blit(imgStart, (0,0))
 		self._display.blit(start, (400,400))
 		while(True):
 			mouse = pygame.mouse.get_pos()
 			for event in pygame.event.get():
-				#allows you to see what the last input was in the geany output window
-				print event
+			"""allows you to see what the last input was in 
+			   the geany output window.
+			   un comment the line below for testing """
+				#print event 
 
 				#called when you hit the X
 				if event.type == QUIT:
@@ -90,11 +94,17 @@ class Game :
 			pygame.display.update()
 			
 	def startButton (self, mouse, event) :
+		""" from the opening screen, the start button takes the user
+			to the store """
+			
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 395, 460, 395, 415) :
 				self._state = "Store"
 				
 	def travel (self, mouse, event) :
+		""" when the user decides to travel, the turn is updated
+			and returned back to the home screen """
+		
 		self._display.blit(imgTravel, (0, 0))
 		self._display.blit(leave1, (20, 550))
 		self._turn.updateTurn(self._party, self._display)
@@ -110,6 +120,8 @@ class Game :
 		self._state = "Home"	
 							
 	def store (self, mouse, event) :
+		""" store menu where the user may buy, sell, and trade items """
+		
 		self._display.blit(imgStore, (0, 0))
 		self._display.blit(leave1, (20, 550))
 		self._store.menu (self._party, self._display, mouse, event)
@@ -119,7 +131,9 @@ class Game :
 				self._state = "Home"
 							
 	def home (self, mouse, event) :
-
+		""" main home screen where the user can select from the options
+			store, forage, inventory, party, and travel """
+			
 		self.displayHome (mouse, event)
 		if event.type == MOUSEBUTTONDOWN:
 			if self.checkMouse (mouse, 8, 95, 380, 405) :
@@ -142,6 +156,9 @@ class Game :
 				self._state = "Travel"
 	
 	def displayHome (self, mouse, event) :
+		""" displays images for the home screen (background and party
+			members) """
+		
 		self._display.blit(imgJungle, (0, 0))
 		explorersDead = []
 		for person in self._party.generatePerson():
@@ -164,20 +181,12 @@ class Game :
 		travelFont = self._myFont2.render("TRAVEL", 1, (255,255,255))	
 		self._display.blit(travelFont, (10, 500))
 		self._turn.displayMenu(self._party, self._display)
-		"""		
-		dayString = "DAY:  " + str(self._turn.getDay())
-		day = self._myFont2.render(dayString, 1, (255,255,255))	
-		self._display.blit(day, (300, 270))
 		
-		disString = "DISTANCE:  " + str(self._turn.getDistance())
-		distance = self._myFont2.render(disString, 1, (255,255,255))	
-		self._display.blit(distance, (300, 300))
-		
-		foodString = "FOOD AMOUNT:  " + str(self._party.getFood())
-		food = self._myFont2.render(foodString, 1, (255,255,255))	
-		self._display.blit(food, (300, 330))
-		"""				
 	def forage (self, mouse, event) :
+		""" forage option that displays the foraging screen. 
+			if the party has not yet foraged this turn,
+			they may forage. returns back to home screen """
+			
 		self._display.blit(imgForage, (0, 0))
 		self._display.blit(leave1, (750, 575))
 		self._turn.forageEvent(self._party, self._display)
@@ -194,6 +203,8 @@ class Game :
 		self._state = "Home"
 	
 	def inventory (self, mouse, event) :
+		""" inventory screen that displays the party inventory """
+		
 		self._display.blit(imgInventory, (0, 0))
 		self._display.blit(leave2, (20, 550))
 		self._party.getInventory().displayInventory(mouse, event, \
@@ -204,6 +215,8 @@ class Game :
 				self._state = "Home"
 
 	def checkMouse (self, mouse, left, right, top, bottom):
+		""" checks the mouse location """
+		
 		isIn = False
 		if mouse[0]	> left and mouse[0] < right \
 		and mouse[1] > top and mouse[1] < bottom :
@@ -212,6 +225,8 @@ class Game :
 
 		
 	def party (self, mouse, event):
+		""" holds party information throughout the game and displays """
+		
 		explorers = []
 		explorersStatus = []
 		explorersHealth = []
@@ -247,6 +262,9 @@ class Game :
 				self._state = "Home"
 		
 	def gameOver (self):
+		""" once the game has ended (every party member has died),
+			opens the game over screen """
+		
 		self._display.blit(imgGameOver, (0, 0))
 		self._turn.displayEnd(self._party, self._display)
 		mouse = pygame.mouse.get_pos()	
@@ -257,13 +275,8 @@ class Game :
 		while not (waitEvent.type == MOUSEBUTTONDOWN ) :
 			mouse = pygame.mouse.get_pos()	
 			waitEvent = pygame.event.wait()
-		
-		
-		
-	
-									
-	
-#setDisplay = pygame.display.set_mode((400,300))
+
+
 pygame.display.set_caption('Jungle Jamboree')
 imgStart = pygame.image.load('Images/StartScreen.png')
 imgJungle = pygame.image.load('Images/HomeScreen.png')
@@ -278,20 +291,7 @@ imgPerson3 = pygame.image.load('Images/Explorer3.png')
 imgPerson4 = pygame.image.load('Images/Explorer4.png')
 imgPerson5 = pygame.image.load('Images/Explorer5.png')
 imgTravel = pygame.image.load('Images/TravelBackground.png')
-"""
-imgx = 0
-imgy = 0
-imgxP1 = 281
-imgyP1 = 400
-imgxP2 = 386
-imgyP2 = 407
-imgxP3 = 200
-imgyP3 = 380
-imgxP4 = 145
-imgyP4 = 400
-imgxP5 = 563
-imgyP5 = 440
-"""
+
 
 testGame = Game()
 start = testGame._myFont2.render("START", 1, (255,255,255))
@@ -299,8 +299,6 @@ store = testGame._myFont2.render("STORE", 1, (255,255,255))
 forage = testGame._myFont2.render("FORAGE", 1, (255,255,255))
 inventory = testGame._myFont2.render("INVENTORY", 1, (255,255,255))
 party = testGame._myFont2.render("PARTY", 1, (255,255,255))
-#day = testGame._myFont3.render("DAY:", 1, (255,255,255))
-#distance = testGame._myFont3.render("DISTANCE:", 1, (255,255,255))
 funds = testGame._myFont2.render("MONEY:", 1, (255,255,255))
 leave1 = testGame._myFont3.render("LEAVE", 1, (0,0,0))
 leave2 = testGame._myFont3.render("LEAVE", 1, (255,255,255))

@@ -3,8 +3,7 @@
 # File Name: RandomEvents.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 RandomEvents class
 ##################################
 
@@ -22,7 +21,7 @@ class RandomEvents :
 
 	def __init__(self) :
 		"""initializes the random events"""
-		#later may want to pass in something that effects the probability of certain events
+
 		self._rand = Random()
 		self._seed = self._rand.seed()
 		self._randNum = self._rand.randint(0,100)
@@ -36,18 +35,22 @@ class RandomEvents :
 		
 	def randNum (self) :
 		""" generates a new random number """
-		self._randNum = self._rand.randint(0,100)
+		elf._randNum = self._rand.randint(0,100)
 		
 	def setRandNum (self, num) : 
 		""" force random num - to force certain events """
 		self._randNum = num
 		
 	def forageEvent (self, party, display) :
+		""" party forages a random amount of food and outputs this 
+			to the screen """
+		
 		randNum = self._rand.randint(0, 100)
 		foodForaged = 0
 		
 		if randNum in range (0,85) :
 			foodForaged = self._rand.randint(0,6)
+		
 		elif randNum in range (85,100) :
 			foodForaged = 5 * party.getSize()
 			
@@ -61,54 +64,66 @@ class RandomEvents :
 	
 	def event (self, party, display) :
 		""" based on the random number, determine the event """
-		if self._randNum in self._noEventRange :
+		
+		if self._randNum in self._noEventRange : #range: 0 - 50
 			self.noEvent(display)
 			
-		elif self._randNum in self._goodEventRange :
+		elif self._randNum in self._goodEventRange : #range: 50 -75
 			self.upperEventGood(party, display)
 			
-		elif self._randNum in self._badEventRange :
+		elif self._randNum in self._badEventRange : #range: 75 -100
 			self.upperEventBad(party, display)
 		
-	def noEvent (self, display) :
-		""" no event will happen """
+	def noEvent (self, display) :	
+		""" no event will happen - """
 		
-		myFont = pygame.font.Font('freesansbold.ttf', 30) # figure out different way
-		
+		myFont = pygame.font.Font('freesansbold.ttf', 30)
 		noEvent = myFont.render("No Event" , 1, (0,0,0))
 		display.blit(noEvent, (350, 350))
 	
-	def upperEventGood (self, party, display) : #50-75
+	def upperEventGood (self, party, display) :  
 		""" the possible good events """
-#		print("Something good happened!")
 		
-		#have inner ranges for different good events...
-		
+		# found food
 		if self._randNum in range(50,60) :
 			self.eventFoundFood(party, display)
+		
+		# found good herb
 		elif self._randNum in range(60, 75):
 			self.eventFoundGoodHerb(party, display)
 	
-	def upperEventBad (self, party, display) : #75-100
-		""" the possible bad events """
-		#have inner ranges for different bad events
+	def upperEventBad (self, party, display) :
+		""" the possible bad events 
+		
+		Based on the random number that was generated, a bad event will
+		be executed."""
 		
 		
-#		print("Oooo... something bad happened...")
-		
+		# lost food		
 		if self._randNum in range(75,80) :
 			self.eventLostFood(party, display)
+		
+		# found bad herb
 		elif self._randNum in range(80, 85):
 			self.eventFoundBadHerb(party, display)
+		
+		# a party member broke an arm
 		elif self._randNum in range (85, 93) :
 			self.eventBrokeArm(party, display)
+		
+		# a party member broke a leg
 		elif self._randNum in range (93, 100) :
 			self.eventBrokeLeg(party, display)
+		
+		# a wild tiger kills entire party
 		elif self._randNum == 100 :
 			self.eventTigerAttack(party, display)
 
-		
-	# good events! -----------------------------------------------------
+
+	# ----------------------------------------------------------------
+	#          function definitions for good events! 
+	# ----------------------------------------------------------------
+	
 	
 	def eventFoundFood (self, party, display) :
 		""" party randomly finds food - based on random number """
@@ -119,7 +134,8 @@ class RandomEvents :
 		
 		Food = myFont.render( "You found food!" , 1, (0,0,0))
 		display.blit(Food, (350, 350))
-		amountString = str(self._randNum / 1) + " food has been added to your inventory."
+		amountString = str(self._randNum / 1) + \
+		" food has been added to your inventory."
 		amount = myFont.render(amountString , 1, (0,0,0))
 		display.blit(amount, (150, 390))
 		
@@ -137,11 +153,17 @@ class RandomEvents :
 		party.incrPartyHealth(10)
 		party.updatePartyHealthEffect(1)
 	
-		# other good events:
+	# other good events may be defined here.
 	
 	
+	# ----------------------------------------------------------------
+	#           end function definitions for good events! 
+	# ----------------------------------------------------------------
 	
-	# bad events! ------------------------------------------------------
+	
+	# ----------------------------------------------------------------
+	#            function definitions for bad events! 
+	# ----------------------------------------------------------------
 
 	def eventLostFood(self, party, display) : 
 		""" party randomly loses food """
@@ -171,8 +193,9 @@ class RandomEvents :
 			party.updateFood(-foodAmount)
 		
 		if party.getFood() == 0 :
-			party.setDead()			#stop game loop
-			Dead = myFont.render( "All party members are dead.", 1, (0,0,0))
+			party.setDead()
+			Dead = \
+			myFont.render( "All party members are dead.", 1, (0,0,0))
 			display.blit(Dead, (250, 450))
 		else :
 			pass
@@ -193,6 +216,7 @@ class RandomEvents :
 		
 	def eventBrokeArm (self, party, display) :
 		""" party member randomly breaks an arm """
+		
 		effect = "Broken Arm"
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
@@ -217,6 +241,7 @@ class RandomEvents :
 		
 	def eventBrokeLeg (self, party, display) :
 		""" party member randomly breaks an arm """
+		
 		effect = "Broken Leg"
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
@@ -239,7 +264,7 @@ class RandomEvents :
 			randPartyMember.setHealthTitle(effect)
 	
 	def eventTigerAttack (self, party, display) :
-		""" the whole party dies """
+		""" the whole party dies from the tiger attack """
 		
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
 		
@@ -249,30 +274,20 @@ class RandomEvents :
 
 		party.setDead()
 		
-	# other bad events (got a disease, lost the machete, broke an arm)
+	# other bad events may be defined here
+	
+	
+	# ----------------------------------------------------------------
+	#          end of function definitions for bad events! 
+	# ----------------------------------------------------------------
 	
 	def getRandomPartyMember (self, party) :
+		""" returns a random party member (not dead members) """
 		
 		if not party.checkPartyDead():
-			randPartyMember = self._rand.randint(0, party.getInitialSize()-1)
+			randPartyMember = \ 
+			self._rand.randint(0, party.getInitialSize()-1)
 			while party.getPartyMember(randPartyMember).deadPerson() :
-				randPartyMember = self._rand.randint(0, party.getInitialSize()-1)
+				randPartyMember = \
+				self._rand.randint(0, party.getInitialSize()-1)
 			return party.getPartyMember(randPartyMember)
-
-"""
-party = Party()
-party.setUpParty()
-test = RandomEvents()
-
-for x in range(1,11) :
-	print "Turn: ", x
-	print "Random Number: ", test.getRandNum()
-	test.event(party)
-	test.randNum ()
-	print ""
-	continueTest = raw_input ("Press any key to continue:  ")
-	print ""
-
-party.displayParty()
-party.getInventory().displayInventory()
-"""

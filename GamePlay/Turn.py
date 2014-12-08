@@ -3,8 +3,7 @@
 # File Name: Turn.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Turn class
 ##################################
 
@@ -23,6 +22,7 @@ class Turn :
 	
 	def __init__(self):
 		""" initializes the turn """
+		
 		self._foodLevel = 2
 		self._day = 0 
 		self._distance = 0
@@ -33,6 +33,7 @@ class Turn :
 	
 	def updateTurn(self, party, display):
 		""" updates the turn """
+		
 		self._Foraged = False
 		self._day += 1
 		self._distance += self._distancePerDay
@@ -61,34 +62,43 @@ class Turn :
 		self._distancePerDay += num
 		
 	def specialItems (self, party) :
-		#if party inventory contains a machete, affects the distance per day (similar for other special items)
+		""" if party inventory contains a machete, affects the 
+			distance per day (similar for other special items) """
+		
 		pass
 	
 	def decrementFood (self, party) :
 		""" decrements the party's food """
+		
 		size = party.getSize()
 		inv = party.getInventory()
 		inv.updateFood (-self._foodLevel * size)
 		party.setInventory(inv)
 	
 	def changeFoodLevel (self, level, party) :
-		""" changes food level of the party and adjusts the health effect based on the food level chosen"""
+		""" changes food level of the party and adjusts the health 
+			effect based on the food level chosen"""
+		
 		oldFoodLevel = self._foodLevel
 		newFoodLevel = level
 		
 		if level == 1 :
-			#negative health effect (decrement to what is already the current health effect)
+			# negative health effect 
+			# (decrement from what is already the current health effect)
 			if oldFoodLevel == 2 :
 				party.updatePartyHealthEffect(-1)
 			elif oldFoodLevel == 3 :
 				party.updatePartyHealthEffect(-2)
+		
 		elif level == 2 :
 			if oldFoodLevel == 1 :
 				party.updatePartyHealthEffect(1)
 			elif oldFoodLevel == 3 :
 				party.updatePartyHealthEffect(-1)
+		
 		elif level == 3 :
-			#positive health effect (increment to what is already the current health effect)
+			# positive health effect 
+			# (increment from what is already the current health effect)
 			if oldFoodLevel == 1 :
 				party.updatePartyHealthEffect(2)
 			elif oldFoodLevel == 2 :
@@ -101,6 +111,9 @@ class Turn :
 		party.getInventory().displayInventory()
 		
 	def forageEvent(self, party, display) :
+		""" if the forage event has not yet been called this turn,
+			then the forage event can be called """
+		
 		myFont = pygame.font.Font('freesansbold.ttf', 25) 
 		
 		if not self._Foraged :
@@ -113,6 +126,7 @@ class Turn :
 			
 	def menu (self, party) :
 		"""displays menu options and handles each option"""
+		
 		option = self.displayMenu(party)
 		foraged = False
 	
@@ -137,10 +151,13 @@ class Turn :
 			
 	def askFoodLevel (self) :
 		""" asks the user what the new food ration level is """
-		level = int(raw_input ("Food Level either 1 (Starving) or 2 (Adequate) or 3 (Stuffed):  "))
+		
+		level = int(raw_input ("Food Level either 1 (Starving) or " +\
+		" 2 (Adequate) or 3 (Stuffed):  "))
 		while level < 1 or level > 3 :
-			level = int(raw_input ("Food Level either 1 (Starving) or 2 (Adequate) or 3 (Stuffed):  "))
-		return level		
+			level = int(raw_input ("Food Level either 1 (Starving) " + \
+			"or 2 (Adequate) or 3 (Stuffed):  "))
+		return level	
 			
 	def displayMenu (self, party, display) :
 		""" display the Menu and return the option """
@@ -183,6 +200,7 @@ class Turn :
 		
 	def displayOptions (self) :	
 		""" display menu options """
+		
 		print "Options"
 		print "1. Continue"
 		print "2. Check backpack"
@@ -190,7 +208,10 @@ class Turn :
 		print "4. Forage"
 		print "5. Check Party \n"
 
-		option = int(raw_input ("What is your choice?  "))  #need to fix if a string is entered. (will break when a string entered)
+		option = int(raw_input ("What is your choice?  "))  
+		# need to fix if a string is entered. 
+		# (will break when a string entered)
+		
 		while option < 1 or option > 5 :
 			option = int(raw_input ("What is your choice?  "))
 			
@@ -200,6 +221,7 @@ class Turn :
 		
 	def foodLevel (self) :
 		""" displays the food level"""
+		
 		foodString = "Neutral"
 		if 1 == self._foodLevel :
 			foodString = "Starvation"
@@ -210,6 +232,9 @@ class Turn :
 		return foodString
 		
 	def checkFood (self, party) :
+		""" checks if the party has no more food left. if so, 
+			the party is set to dead 
+			"""
 		if party.getFood () <= 0 :
 			party.setDead ()
 			party.setFood (0)
@@ -220,43 +245,19 @@ class Turn :
 		return self._running
 		
 	def partyDead(self, party):
-		"""  """
+		""" if the whole party is dead, return true. 
+			Otherwise, return false """
 		if party.checkPartyDead() :
 			self._running = False
 	
 	def deadMember (self, party, display) :
-				
+		""" iterates through the party members, setting death settings
+			to the members who have died """
+		
 		myFont = pygame.font.Font('freesansbold.ttf', 30) 
-		
 
-		
 		for person in party.generatePerson() :
 			if person.deadPerson() and person.getHealthTitle != "Dead":
-				"""		
-				personString = person.getName()+ "died."
-				dPerson = myFont.render(personString , 1, (255,0,0))
-				display.blit(dPerson, (350, 500))"""
-				
-				print person.getName(), "died.\n"
 				party.death()
 				person.setHealthTitle("Dead")
 				person.setHealthEffect(0)
-
-#important testing!!!!
-
-"""
-
-game = Turn()
-party = Party()
-party.setUpParty()
-print "\nYou have started your journey!\n"
-
-while (game.getRunning()) :
-	game.menu(party)
-	print "\n\nEnd of Day: ", game.getDay(), "\n"
-	game.updateTurn(party)
-	
-	
-print "End of the journey."
-
-"""

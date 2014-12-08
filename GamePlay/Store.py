@@ -3,8 +3,7 @@
 # File Name: Store.py
 # Author: 	 Group 3
 # Date: 	 11/10/2014
-# Class:	 CS360
-# Assignment:Jungle Jamboree
+# Project:	 Jungle Jamboree
 # Purpose: 	 Store class
 ##################################
 
@@ -19,14 +18,13 @@ The Store Module
 """ 
 
 class Store (Inventory):
+	""" initializes the store """
 	
 	def __init__ (self) :
 		Inventory.__init__(self)
 		self._food = 5000
 		self._storeState = ""
 		self._inStore = False
-			
-		#relationship?
 	
 	def menu (self, party, display, mouse, event) :
 		""" displays the menu and choices"""
@@ -67,17 +65,19 @@ class Store (Inventory):
 			selectBuy = myFont.render(selectBuyString, 1, (255, 255, 255))
 			display.blit(selectBuy, (450, 50))		
 			self.buy (party, mouse, event, display)
+		
 		elif self._storeState == "sell" and self._inStore :	
 #			pygame.draw.rect(display, (0,255,0), (0,0, 300, 300))	
 			selectSellString = "Please select the item you wish to sell."
 			selectSell = myFont.render(selectSellString, 1, (255, 255, 255))
 			display.blit(selectSell, (450, 50))			
 			self.sell (party, mouse, event, display)
-			pass
+		
 		elif self._storeState == "trade" :		
 			cantTradeString = "Sorry I have nothing to trade."
 			cantTrade = myFont.render(cantTradeString, 1, (255, 255, 255))
 			display.blit(cantTrade, (450, 50))		
+		
 		elif self._storeState == "tip" :					
 			tipString1 = "You should buy plenty of food for the jungle."
 			tipString2 = "The jungle is a harsh place"
@@ -87,10 +87,9 @@ class Store (Inventory):
 			display.blit(tip2, (450, 67))	
 
 								
-
-
 	def setUpStore(self):
-		"""Initalizes the items in the store"""
+		""" Initalizes the items in the store """
+		
 		machete = Item ("Machete", 1, 40.00)
 		self.addItem (machete)
 		firstAidKit = Item ("First Aid Kit", 10, 20.00)
@@ -100,7 +99,8 @@ class Store (Inventory):
 		
 	def buy (self, party, mouse, event, display) : 	
 		""" displays the stores wares and allows the party to buy items 
-			from the store """	
+			from the store """
+			
 		amountPerItem = 1
 		amountPerFood = 10
 		self.displayInventory(mouse, event, display)
@@ -131,8 +131,9 @@ class Store (Inventory):
 
 
 	def sell (self, party, mouse, event, display) : 	
-		""" displays the parties wares and allows the party to sell 
-		items to the store """	
+		""" displays the party's wares and allows the party to sell 
+		items to the store """
+		
 		amountPerItem = 1
 		amountPerFood = 10
 		partyInv = 	party.getInventory()
@@ -159,42 +160,3 @@ class Store (Inventory):
 			
 		partyInv.displayInventory(mouse, event, display)
 #		self._storeState = ""
-
-		
-		"""
-		party.getInventory().displayInventory()
-		option = self.getOption ()
-		while option <= self.getSize () + 1 :
-			
-			if option <= self.getSize () : #an item in the inventory
-				item = self.returnItem (option - 1)	
-				amount = self.getAmountParty (item, party)
-				item.updateQuantity(amount)
-				self.addItem(item)
-				self.updateCash(-amount * item.getCost())
-				party.removeFromInventory(item)
-				party.updateCash(amount * item.getCost())
-				
-			elif option == self.getSize () + 1 : #food
-				amount = self.getAmountPartyFood (party)
-				self.updateFood(amount)
-				self.updateCash(-amount)
-				party.updateFood(-amount)
-				party.updateCash(amount)
-				
-			party.getInventory().displayInventory()
-			option = self.getOption ()		
-		"""
-"""
-
-
-party = Party ()
-store = Store ()
-party.setUpParty ()
-store.setUpStore ()
-party.getInventory().displayInventory()
-print("\n\n\n")
-store.menu (party)
-print("\n\n\n")
-party.getInventory().displayInventory()
-"""
